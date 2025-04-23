@@ -49,6 +49,21 @@
       text-shadow: 0 0 10px #c084fc, 0 0 20px #c084fc;
       margin-top: 0.5rem;
     }
+    .titulo-blanco {
+      position: absolute;
+      top: 9700px;
+      width: 100%;
+      text-align: center;
+      color: #000;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #000, 0 0 20px #000;
+    }
+    .sub-blanco {
+      font-size: 1.2rem;
+      color: #22d3ee;
+      text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
+      margin-top: 0.3rem;
+    }
     .estrella {
       position: absolute;
       width: 6px;
@@ -67,7 +82,7 @@
       position: absolute;
       width: 300px;
       height: auto;
-      opacity: 0.6;
+      opacity: 0.3;
       pointer-events: none;
     }
     .objeto-volador {
@@ -81,10 +96,16 @@
 </head>
 <body>
   <div class="infografia" id="infografia">
-    <!-- Títulos en parte negra -->
+    <!-- Título parte negra -->
     <div class="titulo-principal" id="titulo">
       todos somos bobos
       <div class="subtitulo">(en algunas cosas)</div>
+    </div>
+
+    <!-- Título parte blanca -->
+    <div class="titulo-blanco">
+      todos somos inteligentes
+      <div class="sub-blanco">(más de lo que crees)</div>
     </div>
 
     <!-- Objetos voladores -->
@@ -154,7 +175,7 @@
       mover();
     });
 
-    // Nubes animadas: flotan a la derecha y reaparecen por la izquierda
+    // Nubes animadas flotan derecha y reaparecen por izquierda
     const tiposNube = ['nube1.png', 'nube2.png', 'nube3.png', 'nube4.png', 'nube5.png'];
     const cantidadNubes = 20;
     for (let i = 0; i < cantidadNubes; i++) {
@@ -163,7 +184,7 @@
       nube.src = tiposNube[i % tiposNube.length];
 
       const escala = 0.8 + Math.random() * 1.2;
-      let x = -300 + Math.random() * 1000;
+      let x = -300 + Math.random() * 1300;
       const y = 5500 + Math.random() * 4500;
       const velocidad = 0.3 + Math.random() * 0.4;
 
@@ -181,7 +202,7 @@
       animarNube();
     }
 
-    // Estrellas estilo nostalgia
+    // Estrellas estilo nostalgia ajustadas en altura (solo parte negra)
     const cantidadEstrellas = 100;
     const colores = ['#fceabb', '#ffc3a0', '#c2e9fb', '#ffd194', '#fff5c3'];
     for (let i = 0; i < cantidadEstrellas; i++) {
@@ -189,7 +210,7 @@
       estrella.classList.add('estrella');
 
       const x = Math.random() * 1000;
-      const y = Math.random() * (5000 * 0.95);
+      const y = Math.random() * 5000;
       const color = colores[Math.floor(Math.random() * colores.length)];
       const delay = Math.random() * 5;
 
