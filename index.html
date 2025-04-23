@@ -67,13 +67,8 @@
       position: absolute;
       width: 300px;
       height: auto;
-      opacity: 0.8;
-      animation: moverNube linear infinite;
+      opacity: 0.6;
       pointer-events: none;
-    }
-    @keyframes moverNube {
-      from { transform: translateX(-300px); }
-      to { transform: translateX(1300px); }
     }
     .objeto-volador {
       position: absolute;
@@ -122,15 +117,20 @@
       '5png.png'
     ];
 
+    const usados = [];
     rutas.forEach((nombre, index) => {
       const img = document.createElement('img');
       img.src = nombre;
       img.classList.add('objeto-volador');
       voladoresContainer.appendChild(img);
 
-      const spacing = 180;
-      let posX = (index * spacing) % (1000 - 180);
-      let posY = (index * spacing * 2) % (4500 - 180);
+      let posX, posY, attempts = 0;
+      do {
+        posX = Math.random() * (1000 - 180);
+        posY = Math.random() * (4500 - 180);
+        attempts++;
+      } while (usados.some(p => Math.abs(p.x - posX) < 150 && Math.abs(p.y - posY) < 150) && attempts < 10);
+      usados.push({ x: posX, y: posY });
 
       let velX = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
       let velY = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
@@ -154,24 +154,31 @@
       mover();
     });
 
-    // Nubes como imágenes animadas (5 tipos x 4 repeticiones)
+    // Nubes animadas: flotan a la derecha y reaparecen por la izquierda
     const tiposNube = ['nube1.png', 'nube2.png', 'nube3.png', 'nube4.png', 'nube5.png'];
-    for (let i = 0; i < 20; i++) {
+    const cantidadNubes = 20;
+    for (let i = 0; i < cantidadNubes; i++) {
       const nube = document.createElement('img');
       nube.classList.add('nube-img');
       nube.src = tiposNube[i % tiposNube.length];
 
-      const x = Math.random() * 1200 - 300;
-      const y = 5500 + Math.random() * 4500;
-      const duracion = 60 + Math.random() * 60;
       const escala = 0.8 + Math.random() * 1.2;
+      let x = -300 + Math.random() * 1000;
+      const y = 5500 + Math.random() * 4500;
+      const velocidad = 0.3 + Math.random() * 0.4;
 
       nube.style.top = `${y}px`;
-      nube.style.left = `${x}px`;
       nube.style.transform = `scale(${escala})`;
-      nube.style.animationDuration = `${duracion}s`;
-
+      nube.style.left = `${x}px`;
       nubeImgs.appendChild(nube);
+
+      function animarNube() {
+        x += velocidad;
+        if (x > 1300) x = -300;
+        nube.style.left = `${x}px`;
+        requestAnimationFrame(animarNube);
+      }
+      animarNube();
     }
 
     // Estrellas estilo nostalgia
