@@ -46,18 +46,12 @@
       text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
     }
 
-    /* Silueta de cerebro palpitando (puro CSS) */
+    /* CEREBRO CON IMAGEN */
     .cerebro {
-      width: 120px;
-      height: 120px;
-      background: radial-gradient(circle at 50% 50%, #fff 40%, transparent 41%);
-      border-radius: 50%;
-      box-shadow:
-        0 0 20px #fff,
-        inset 0 0 10px #fff,
-        0 0 60px #00ffff;
+      width: 180px;
       animation: palpitar 1.2s infinite ease-in-out;
       margin-bottom: 40px;
+      filter: drop-shadow(0 0 10px #00ffff);
     }
 
     @keyframes palpitar {
@@ -81,7 +75,6 @@
       color: black;
     }
 
-    /* Pantalla flash blanca */
     .flash {
       position: fixed;
       top: 0; left: 0;
@@ -111,7 +104,6 @@
       text-align: center;
     }
 
-    /* TÍTULO EN LA INFOGRAFÍA */
     .titulo-principal {
       font-size: 48px;
       color: white;
@@ -132,7 +124,7 @@
 
   <!-- INTRO -->
   <div class="intro">
-    <div class="cerebro"></div>
+    <img src="cerebro.png" alt="Cerebro palpitante" class="cerebro">
     <h1>Todos somos <span>inteligentes</span></h1>
     <button class="boton" onclick="iniciar()">Continuar</button>
   </div>
@@ -146,7 +138,6 @@
       Todos somos bobos<br>
       <span>(en algo)</span>
     </h1>
-    <!-- Aquí puedes seguir agregando más secciones -->
   </div>
 
   <script>
