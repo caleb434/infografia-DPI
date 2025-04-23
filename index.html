@@ -14,9 +14,10 @@
     body {
       background: #000;
       font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
     }
 
-    /* Intro */
+    /* INTRO */
     .intro {
       position: fixed;
       top: 0; left: 0;
@@ -36,6 +37,7 @@
       font-size: 36px;
       text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .intro h1 span {
@@ -45,14 +47,15 @@
     }
 
     .cerebro {
-      width: 150px;
+      width: 180px;
       animation: palpitar 1.2s infinite ease-in-out;
       margin-bottom: 40px;
+      filter: drop-shadow(0 0 8px #fff);
     }
 
     @keyframes palpitar {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+      50% { transform: scale(1.12); }
     }
 
     .boton {
@@ -71,7 +74,7 @@
       color: black;
     }
 
-    /* Pantalla blanca flash */
+    /* Pantalla flash blanca */
     .flash {
       position: fixed;
       top: 0; left: 0;
@@ -82,11 +85,10 @@
       display: none;
     }
 
-    /* Infografía */
+    /* INFOGRAFÍA */
     .infografia {
       display: none;
-      width: 1000px;
-      margin: auto;
+      width: 100vw;
       height: 5000px;
       background: linear-gradient(
         to bottom,
@@ -105,18 +107,17 @@
 
   <!-- INTRO -->
   <div class="intro">
-    <!-- Usa tu propia imagen de cerebro aquí -->
     <img src="cerebro.png" alt="Cerebro palpitando" class="cerebro">
     <h1>Todos somos <span>inteligentes</span></h1>
     <button class="boton" onclick="iniciar()">Continuar</button>
   </div>
 
-  <!-- Flash blanco -->
+  <!-- FLASH -->
   <div class="flash" id="flash"></div>
 
   <!-- INFOGRAFÍA -->
   <div class="infografia" id="infografia">
-    <!-- Aquí irá tu contenido real -->
+    <!-- Aquí irá todo el contenido -->
   </div>
 
   <script>
@@ -125,10 +126,8 @@
       const intro = document.querySelector('.intro');
       const infografia = document.getElementById('infografia');
 
-      // Mostrar el flash
       flash.style.display = 'block';
 
-      // Después de 400ms, ocultar intro y mostrar infografía
       setTimeout(() => {
         intro.style.display = 'none';
         flash.style.display = 'none';
@@ -139,4 +138,3 @@
 
 </body>
 </html>
-
