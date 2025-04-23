@@ -79,9 +79,9 @@
     }
     .objeto-volador {
       position: absolute;
-      width: 100px;
+      width: 130px;
       height: auto;
-      opacity: 0.85;
+      opacity: 0.65;
       pointer-events: none;
     }
   </style>
@@ -129,14 +129,14 @@
       img.classList.add('objeto-volador');
       voladoresContainer.appendChild(img);
 
-      let posX = Math.random() * (1000 - 100);
-      let posY = Math.random() * (4500 - 100);
+      let posX = Math.random() * (1000 - 130);
+      let posY = Math.random() * (4500 - 130);
       let velX = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
       let velY = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
 
       function mover() {
-        const maxX = 1000 - 100;
-        const maxY = 4500 - 100;
+        const maxX = 1000 - 130;
+        const maxY = 4500 - 130;
 
         posX += velX;
         posY += velY;
@@ -175,22 +175,4 @@
 
     // Nubes en la parte blanca (de 5500 a 10000px)
     const cantidadNubes = 20;
-    for (let i = 0; i < cantidadNubes; i++) {
-      const nube = document.createElement('div');
-      nube.classList.add('nube');
-
-      const x = Math.random() * 1200 - 300;
-      const y = 5500 + Math.random() * 4500;
-      const duracion = 60 + Math.random() * 60;
-      const escala = 0.8 + Math.random() * 1.2;
-
-      nube.style.top = `${y}px`;
-      nube.style.left = `${x}px`;
-      nube.style.transform = `scale(${escala})`;
-      nube.style.animationDuration = `${duracion}s`;
-
-      contenedor.appendChild(nube);
-    }
-  </script>
-</body>
-</html>
+    for (let i = 0; i < cantid
