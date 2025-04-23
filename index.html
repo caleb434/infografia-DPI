@@ -63,15 +63,13 @@
       0%, 100% { opacity: 0.3; transform: scale(0.9); }
       50% { opacity: 1; transform: scale(1.2); }
     }
-    .nube {
+    .nube-img {
       position: absolute;
-      width: 250px;
-      height: 120px;
-      background: radial-gradient(ellipse at center, rgba(235,235,235,0.8) 0%, rgba(215,215,215,0.6) 100%);
-      border-radius: 50%;
-      filter: blur(6px);
+      width: 300px;
+      height: auto;
       opacity: 0.8;
       animation: moverNube linear infinite;
+      pointer-events: none;
     }
     @keyframes moverNube {
       from { transform: translateX(-300px); }
@@ -97,14 +95,15 @@
     <!-- Objetos voladores -->
     <div id="voladores"></div>
 
-    <!-- Estrellas -->
-    <!-- Nubes -->
+    <!-- Nubes como imágenes animadas -->
+    <div id="nubeImgs"></div>
   </div>
 
   <script>
     const contenedor = document.getElementById('infografia');
     const titulo = document.getElementById('titulo');
     const voladoresContainer = document.getElementById('voladores');
+    const nubeImgs = document.getElementById('nubeImgs');
 
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
@@ -155,6 +154,26 @@
       mover();
     });
 
+    // Nubes como imágenes animadas (5 tipos x 4 repeticiones)
+    const tiposNube = ['nube1.png', 'nube2.png', 'nube3.png', 'nube4.png', 'nube5.png'];
+    for (let i = 0; i < 20; i++) {
+      const nube = document.createElement('img');
+      nube.classList.add('nube-img');
+      nube.src = tiposNube[i % tiposNube.length];
+
+      const x = Math.random() * 1200 - 300;
+      const y = 5500 + Math.random() * 4500;
+      const duracion = 60 + Math.random() * 60;
+      const escala = 0.8 + Math.random() * 1.2;
+
+      nube.style.top = `${y}px`;
+      nube.style.left = `${x}px`;
+      nube.style.transform = `scale(${escala})`;
+      nube.style.animationDuration = `${duracion}s`;
+
+      nubeImgs.appendChild(nube);
+    }
+
     // Estrellas estilo nostalgia
     const cantidadEstrellas = 100;
     const colores = ['#fceabb', '#ffc3a0', '#c2e9fb', '#ffd194', '#fff5c3'];
@@ -173,25 +192,6 @@
       estrella.style.animationDelay = `${delay}s`;
 
       contenedor.appendChild(estrella);
-    }
-
-    // Nubes en la parte blanca (de 5500 a 10000px)
-    const cantidadNubes = 20;
-    for (let i = 0; i < cantidadNubes; i++) {
-      const nube = document.createElement('div');
-      nube.classList.add('nube');
-
-      const x = Math.random() * 1200 - 300;
-      const y = 5500 + Math.random() * 4500;
-      const duracion = 60 + Math.random() * 60;
-      const escala = 0.8 + Math.random() * 1.2;
-
-      nube.style.top = `${y}px`;
-      nube.style.left = `${x}px`;
-      nube.style.transform = `scale(${escala})`;
-      nube.style.animationDuration = `${duracion}s`;
-
-      contenedor.appendChild(nube);
     }
   </script>
 </body>
