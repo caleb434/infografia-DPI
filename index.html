@@ -5,15 +5,88 @@
   <title>Infografía DPI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    * {
       margin: 0;
-      background: #111;
-      display: flex;
-      justify-content: center;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      background: #000;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* Intro */
+    .intro {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transition: opacity 0.5s ease;
+    }
+
+    .intro h1 {
+      color: white;
+      font-size: 36px;
+      text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .intro h1 span {
+      color: #00ffff;
+      font-size: 44px;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    }
+
+    .cerebro {
+      width: 150px;
+      animation: palpitar 1.2s infinite ease-in-out;
+      margin-bottom: 40px;
+    }
+
+    @keyframes palpitar {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .boton {
+      background: none;
+      border: 2px solid #00ffff;
+      padding: 12px 24px;
+      color: #00ffff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    .boton:hover {
+      background: #00ffff;
+      color: black;
+    }
+
+    /* Pantalla blanca flash */
+    .flash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: white;
+      z-index: 200;
+      display: none;
+    }
+
+    /* Infografía */
     .infografia {
+      display: none;
       width: 1000px;
+      margin: auto;
       height: 5000px;
       background: linear-gradient(
         to bottom,
@@ -25,30 +98,45 @@
         #fff 3000px,
         #fff 5000px
       );
-      position: relative;
-      padding-top: 100px;
-    }
-
-    .titulo {
-      text-align: center;
-      font-family: 'Arial', sans-serif;
-      font-weight: bold;
-      font-size: 36px;
-      color: white;
-      text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
-    }
-
-    .titulo span {
-      color: #00ffff;
-      font-size: 44px;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
     }
   </style>
 </head>
 <body>
-  <div class="infografia">
-    <h1 class="titulo">Todos somos <span>inteligentes</span></h1>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <!-- Usa tu propia imagen de cerebro aquí -->
+    <img src="cerebro.png" alt="Cerebro palpitando" class="cerebro">
+    <h1>Todos somos <span>inteligentes</span></h1>
+    <button class="boton" onclick="iniciar()">Continuar</button>
   </div>
+
+  <!-- Flash blanco -->
+  <div class="flash" id="flash"></div>
+
+  <!-- INFOGRAFÍA -->
+  <div class="infografia" id="infografia">
+    <!-- Aquí irá tu contenido real -->
+  </div>
+
+  <script>
+    function iniciar() {
+      const flash = document.getElementById('flash');
+      const intro = document.querySelector('.intro');
+      const infografia = document.getElementById('infografia');
+
+      // Mostrar el flash
+      flash.style.display = 'block';
+
+      // Después de 400ms, ocultar intro y mostrar infografía
+      setTimeout(() => {
+        intro.style.display = 'none';
+        flash.style.display = 'none';
+        infografia.style.display = 'block';
+      }, 400);
+    }
+  </script>
+
 </body>
 </html>
 
