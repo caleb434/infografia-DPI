@@ -123,4 +123,77 @@
       '5png.png'
     ];
 
-    rutas.forE
+    rutas.forEach((nombre, index) => {
+      const img = document.createElement('img');
+      img.src = nombre;
+      img.classList.add('objeto-volador');
+      voladoresContainer.appendChild(img);
+
+      const spacing = 180;
+      let posX = (index * spacing) % (1000 - 180);
+      let posY = (index * spacing * 2) % (4500 - 180);
+
+      let velX = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
+      let velY = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
+
+      function mover() {
+        const maxX = 1000 - 180;
+        const maxY = 4500 - 180;
+
+        posX += velX;
+        posY += velY;
+
+        if (posX <= 0 || posX >= maxX) velX *= -1;
+        if (posY <= 0 || posY >= maxY) velY *= -1;
+
+        img.style.left = `${posX}px`;
+        img.style.top = `${posY}px`;
+
+        requestAnimationFrame(mover);
+      }
+
+      mover();
+    });
+
+    // Estrellas estilo nostalgia
+    const cantidadEstrellas = 100;
+    const colores = ['#fceabb', '#ffc3a0', '#c2e9fb', '#ffd194', '#fff5c3'];
+    for (let i = 0; i < cantidadEstrellas; i++) {
+      const estrella = document.createElement('div');
+      estrella.classList.add('estrella');
+
+      const x = Math.random() * 1000;
+      const y = Math.random() * (5000 * 0.95);
+      const color = colores[Math.floor(Math.random() * colores.length)];
+      const delay = Math.random() * 5;
+
+      estrella.style.left = `${x}px`;
+      estrella.style.top = `${y}px`;
+      estrella.style.background = color;
+      estrella.style.animationDelay = `${delay}s`;
+
+      contenedor.appendChild(estrella);
+    }
+
+    // Nubes en la parte blanca (de 5500 a 10000px)
+    const cantidadNubes = 20;
+    for (let i = 0; i < cantidadNubes; i++) {
+      const nube = document.createElement('div');
+      nube.classList.add('nube');
+
+      const x = Math.random() * 1200 - 300;
+      const y = 5500 + Math.random() * 4500;
+      const duracion = 60 + Math.random() * 60;
+      const escala = 0.8 + Math.random() * 1.2;
+
+      nube.style.top = `${y}px`;
+      nube.style.left = `${x}px`;
+      nube.style.transform = `scale(${escala})`;
+      nube.style.animationDuration = `${duracion}s`;
+
+      contenedor.appendChild(nube);
+    }
+  </script>
+</body>
+</html>
+
