@@ -5,64 +5,58 @@
   <title>Infografía DPI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* ... estilos CSS existentes ... */
+  </style>
+</head>
+<body>
 
-    body {
-      background: #000;
-      font-family: 'Arial', sans-serif;
-      overflow-x: hidden;
-    }
+  <!-- INTRO -->
+  <div class="intro">
+    <img src="cerebro.png" alt="Cerebro palpitando" class="cerebro" id="cerebro-img">
+    <h1>Todos somos <span>inteligentes</span></h1>
+    <button class="boton" onclick="iniciar()">Continuar</button>
+  </div>
 
-    /* INTRO */
-    .intro {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      transition: opacity 0.5s ease;
-    }
+  <!-- FLASH -->
+  <div class="flash" id="flash"></div>
 
-    .intro h1 {
-      color: white;
-      font-size: 36px;
-      text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+  <!-- INFOGRAFÍA -->
+  <div class="infografia" id="infografia">
+    <h1 class="titulo-principal">
+      Todos somos bobos<br>
+      <span>(en algo)</span>
+    </h1>
+    <!-- Aquí puedes seguir construyendo -->
+  </div>
 
-    .intro h1 span {
-      color: #00ffff;
-      font-size: 44px;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-    }
+  <script>
+    function iniciar() {
+      const flash = document.getElementById('flash');
+      const intro = document.querySelector('.intro');
+      const infografia = document.getElementById('infografia');
+      const cerebroImg = document.getElementById('cerebro-img');
 
-    .cerebro {
-      width: 150px;
-      animation: palpitar 1.2s infinite ease-in-out;
-      margin-bottom: 40px;
-      filter: drop-shadow(0 0 10px #fff);
-    }
+      // Mostrar el flash blanco
+      flash.style.display = 'block';
 
-    @keyframes palpitar {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.12); }
-    }
+      // Esperar a que la imagen del cerebro se cargue
+      if (cerebroImg.complete) {
+        // Si la imagen ya está cargada, proceder inmediatamente
+        mostrarInfografia();
+      } else {
+        // Si la imagen no está cargada, esperar a que se cargue
+        cerebroImg.onload = mostrarInfografia;
+      }
 
-    .boton {
-      background: none;
-      border: 2px solid #00ffff;
-      padding: 12px 24px;
-      color: #00ffff;
-      font-size: 18px;
-      cursor: pointer;
-      transition:
+      function mostrarInfografia() {
+        setTimeout(() => {
+          intro.style.display = 'none';
+          flash.style.display = 'none';
+          infografia.style.display = 'block';
+        }, 400);
+      }
+    }
+  </script>
+
+</body>
+</html>
