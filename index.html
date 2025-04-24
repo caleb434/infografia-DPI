@@ -10,10 +10,65 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background: black;
       font-family: 'DynaPuff', cursive;
+      background: black;
+    }
+    .pantalla-inicio {
+      position: fixed;
+      z-index: 9999;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 1s ease;
+    }
+    .pantalla-inicio.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .intro-title {
+      font-size: 2.4rem;
+      color: #ffff00;
+      text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
+      margin-bottom: 10px;
+      margin-top: -40px;
+    }
+    .cerebro-container {
+      position: relative;
+      width: 300px;
+      margin-bottom: 40px;
+    }
+    .cerebro-container img {
+      width: 100%;
+      display: block;
+    }
+    .corazon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 90px;
+      height: 90px;
+      transform: translate(-50%, -50%);
+      animation: latir 1.2s infinite ease-in-out;
+    }
+    @keyframes latir {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+    #continuarBtn {
+      font-family: 'DynaPuff', cursive;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #ff0000;
+      cursor: pointer;
+      text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
     }
     .infografia {
+      display: none;
       width: 1000px;
       height: 10000px;
       margin: 0 auto;
@@ -27,35 +82,31 @@
       position: relative;
       overflow: hidden;
     }
-    .titulo-principal {
-      position: absolute;
-      top: 200px;
+    .titulo-principal, .titulo-blanco {
+      font-size: 3rem;
       width: 100%;
       text-align: center;
+      position: absolute;
+    }
+    .titulo-principal {
+      top: 200px;
       color: #fff;
-      font-size: 3rem;
       text-shadow: 0 0 10px #fff, 0 0 20px #fff;
     }
     .subtitulo {
       font-size: 1.5rem;
       color: #c084fc;
       text-shadow: 0 0 10px #c084fc, 0 0 20px #c084fc;
-      margin-top: 0.5rem;
     }
     .titulo-blanco {
-      position: absolute;
       top: 5600px;
-      width: 100%;
-      text-align: center;
       color: #000;
-      font-size: 3rem;
       text-shadow: 0 0 10px #000, 0 0 20px #000;
     }
     .sub-blanco {
       font-size: 1.5rem;
       color: #22d3ee;
       text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
-      margin-top: 0.5rem;
     }
     .estrella {
       position: absolute;
@@ -88,24 +139,20 @@
     audio {
       display: none;
     }
-    #playButton {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 999;
-      padding: 10px 20px;
-      background: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: 'DynaPuff', cursive;
-    }
   </style>
 </head>
 <body>
-  <button id="playButton">🔊 Activar sonido</button>
-  <audio id="audio1" src="Tentaci&oacute;n (online-audio-converter.com).mp3" loop></audio>
-  <audio id="audio2" src="aceptaci&oacute;n. (online-audio-converter.com).mp3" loop></audio>
+  <div class="pantalla-inicio" id="pantallaInicio">
+    <div class="intro-title">inteligencias múltiples</div>
+    <div class="cerebro-container">
+      <img src="cerebro.png" alt="">
+      <img src="corazon.png" class="corazon" alt="">
+    </div>
+    <button id="continuarBtn">continuar</button>
+  </div>
+
+  <audio id="audio1" src="Tentación (online-audio-converter.com).mp3" loop></audio>
+  <audio id="audio2" src="aceptación. (online-audio-converter.com).mp3" loop></audio>
 
   <div class="infografia" id="infografia">
     <div class="titulo-principal" id="tituloNegro">
@@ -123,14 +170,17 @@
   <script>
     const audio1 = document.getElementById('audio1');
     const audio2 = document.getElementById('audio2');
-    const playButton = document.getElementById('playButton');
+    const pantallaInicio = document.getElementById('pantallaInicio');
+    const btnContinuar = document.getElementById('continuarBtn');
+    const infografia = document.getElementById('infografia');
 
-    playButton.addEventListener('click', () => {
+    btnContinuar.addEventListener('click', () => {
+      pantallaInicio.classList.add('hidden');
+      infografia.style.display = 'block';
       audio1.volume = 1;
       audio2.volume = 0;
       audio1.play();
       audio2.play();
-      playButton.style.display = 'none';
       requestAnimationFrame(updateVolume);
     });
 
