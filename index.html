@@ -121,25 +121,29 @@
     const audio1 = document.getElementById('audio1');
     const audio2 = document.getElementById('audio2');
 
-    audio1.volume = 1;
-    audio2.volume = 0;
+    window.addEventListener('load', () => {
+      audio1.volume = 1;
+      audio2.volume = 0;
+      audio1.play().catch(()=>{});
+      audio2.play().catch(()=>{});
+    });
 
-    function actualizarVolumen() {
-      const scrollY = window.scrollY;
-      if (scrollY < 4500) {
+    function crossfadeAudio() {
+      const y = window.scrollY;
+      if (y < 4500) {
         audio1.volume = 1;
         audio2.volume = 0;
-      } else if (scrollY > 5500) {
+      } else if (y >= 5500) {
         audio1.volume = 0;
         audio2.volume = 1;
       } else {
-        const ratio = (scrollY - 4500) / 1000;
+        const ratio = (y - 4500) / 1000;
         audio1.volume = 1 - ratio;
         audio2.volume = ratio;
       }
-      requestAnimationFrame(actualizarVolumen);
+      requestAnimationFrame(crossfadeAudio);
     }
-    requestAnimationFrame(actualizarVolumen);
+    requestAnimationFrame(crossfadeAudio);
 
     const rutas = [
       '1png.png', '2png.png', '3png.png', '4png.png', '5png.png'
