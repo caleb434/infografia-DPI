@@ -153,6 +153,31 @@
       color: #ffff00;
       text-shadow: 0 0 10px #ffff00;
     }
+    .mensaje-adicional {
+      position: absolute;
+      top: 950px;
+      left: 5%;
+      width: 90%;
+      font-size: 1.2rem;
+      color: white;
+      text-align: left;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .mensaje-adicional.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .neon-cyan {
+      color: #22d3ee;
+      text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
+    }
+    .neon-red {
+      color: #ff0000;
+      text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+    }
     .cita-blanca {
       position: absolute;
       top: 5900px;
@@ -231,6 +256,11 @@
       Pero lo que muchas veces ignoramos<br>
       es que no todos fuimos creados de la misma manera.<br>
       Y eso también está bien.
+    </div>
+    <div class="mensaje-adicional" id="mensajeAdicional">
+      Un estudio publicado en <em>Frontiers in Psychology</em> reveló que los estudiantes que creen que su 
+      <span class="neon-cyan">inteligencia</span> es algo fijo y no puede 
+      <span class="neon-red">cambiar</span> tienen más probabilidades de sufrir problemas de salud mental y altos niveles de estrés académico.
     </div>
     <div class="titulo-blanco" id="tituloBlanco">
       todos somos inteligentes
@@ -355,6 +385,7 @@
     observer.observe(document.getElementById('citaTexto'));
     observer.observe(document.getElementById('mensajeIzquierda'));
     observer.observe(document.getElementById('citaBlanca'));
+    observer.observe(document.getElementById('mensajeAdicional'));
   </script>
 </body>
 </html>
