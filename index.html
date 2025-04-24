@@ -210,7 +210,7 @@
       <img src="corazon.png" class="corazon" alt="">
     </div>
     <button id="continuarBtn">continuar</button>
-    <div class="autor">De: Caleb.B</div>
+    <div class="autor">De: Caleb Bermudez</div>
   </div>
 
   <audio id="audio1" src="Tentación (online-audio-converter.com).mp3" loop></audio>
@@ -262,6 +262,8 @@
       requestAnimationFrame(updateVolume);
 
       const voladoresContainer = document.getElementById('voladores');
+      const nubeImgs = document.getElementById('nubeImgs');
+
       const rutas = ['1png.png', '2png.png', '3png.png', '4png.png', '5png.png'];
       const usados = [];
       rutas.forEach((nombre) => {
@@ -272,7 +274,7 @@
         let posX, posY, attempts = 0;
         do {
           posX = Math.random() * (1000 - 180);
-          posY = Math.random() * (10000 - 180);
+          posY = Math.random() * (4500 - 180);
           attempts++;
         } while (usados.some(p => Math.abs(p.x - posX) < 150 && Math.abs(p.y - posY) < 150) && attempts < 10);
         usados.push({ x: posX, y: posY });
@@ -280,7 +282,7 @@
         let velY = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
         function mover() {
           const maxX = 1000 - 180;
-          const maxY = 10000 - 180;
+          const maxY = 4500 - 180;
           posX += velX;
           posY += velY;
           if (posX <= 0 || posX >= maxX) velX *= -1;
@@ -291,6 +293,29 @@
         }
         mover();
       });
+
+      const tiposNube = ['nube1.png', 'nube2.png', 'nube3.png', 'nube4.png', 'nube5.png'];
+      const cantidadNubes = 20;
+      for (let i = 0; i < cantidadNubes; i++) {
+        const nube = document.createElement('img');
+        nube.classList.add('nube-img');
+        nube.src = tiposNube[i % tiposNube.length];
+        const escala = 0.8 + Math.random() * 1.2;
+        let x = -300 + Math.random() * 1300;
+        const y = 5500 + Math.random() * 4500;
+        const velocidad = 0.3 + Math.random() * 0.4;
+        nube.style.top = `${y}px`;
+        nube.style.transform = `scale(${escala})`;
+        nube.style.left = `${x}px`;
+        nubeImgs.appendChild(nube);
+        function animarNube() {
+          x += velocidad;
+          if (x > 1300) x = -300;
+          nube.style.left = `${x}px`;
+          requestAnimationFrame(animarNube);
+        }
+        animarNube();
+      }
     });
 
     function updateVolume() {
