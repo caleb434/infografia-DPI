@@ -88,47 +88,53 @@
     audio {
       display: none;
     }
+    #playButton {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+      padding: 10px 20px;
+      background: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'DynaPuff', cursive;
+    }
   </style>
 </head>
 <body>
-  <audio id="audio1" src="Tentación (online-audio-converter.com).mp3" autoplay loop></audio>
-  <audio id="audio2" src="aceptación (online-audio-converter.com).mp3" autoplay loop></audio>
+  <button id="playButton">🔊 Activar sonido</button>
+  <audio id="audio1" src="tentacion.mp3" loop></audio>
+  <audio id="audio2" src="aceptacion.mp3" loop></audio>
 
   <div class="infografia" id="infografia">
-    <!-- Título parte negra -->
     <div class="titulo-principal" id="tituloNegro">
       todos somos bobos
       <div class="subtitulo">(en algunas cosas)</div>
     </div>
-
-    <!-- Título parte blanca -->
     <div class="titulo-blanco" id="tituloBlanco">
       todos somos inteligentes
       <div class="sub-blanco">(más de lo que crees)</div>
     </div>
-
-    <!-- Objetos voladores -->
     <div id="voladores"></div>
-
-    <!-- Nubes como imágenes animadas -->
     <div id="nubeImgs"></div>
   </div>
 
   <script>
-    const contenedor = document.getElementById('infografia');
-    const voladoresContainer = document.getElementById('voladores');
-    const nubeImgs = document.getElementById('nubeImgs');
     const audio1 = document.getElementById('audio1');
     const audio2 = document.getElementById('audio2');
+    const playButton = document.getElementById('playButton');
 
-    window.addEventListener('load', () => {
+    playButton.addEventListener('click', () => {
       audio1.volume = 1;
       audio2.volume = 0;
-      audio1.play().catch(()=>{});
-      audio2.play().catch(()=>{});
+      audio1.play();
+      audio2.play();
+      playButton.style.display = 'none';
+      requestAnimationFrame(updateVolume);
     });
 
-    function crossfadeAudio() {
+    function updateVolume() {
       const y = window.scrollY;
       if (y < 4500) {
         audio1.volume = 1;
@@ -141,20 +147,20 @@
         audio1.volume = 1 - ratio;
         audio2.volume = ratio;
       }
-      requestAnimationFrame(crossfadeAudio);
+      requestAnimationFrame(updateVolume);
     }
-    requestAnimationFrame(crossfadeAudio);
 
-    const rutas = [
-      '1png.png', '2png.png', '3png.png', '4png.png', '5png.png'
-    ];
+    const contenedor = document.getElementById('infografia');
+    const voladoresContainer = document.getElementById('voladores');
+    const nubeImgs = document.getElementById('nubeImgs');
+
+    const rutas = ['1png.png', '2png.png', '3png.png', '4png.png', '5png.png'];
     const usados = [];
     rutas.forEach((nombre) => {
       const img = document.createElement('img');
       img.src = nombre;
       img.classList.add('objeto-volador');
       voladoresContainer.appendChild(img);
-
       let posX, posY, attempts = 0;
       do {
         posX = Math.random() * (1000 - 180);
@@ -162,10 +168,8 @@
         attempts++;
       } while (usados.some(p => Math.abs(p.x - posX) < 150 && Math.abs(p.y - posY) < 150) && attempts < 10);
       usados.push({ x: posX, y: posY });
-
       let velX = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
       let velY = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
-
       function mover() {
         const maxX = 1000 - 180;
         const maxY = 4500 - 180;
