@@ -116,59 +116,58 @@
       color: #22d3ee;
       text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
     }
-    .cita-texto {
+    .cita-texto, .mensaje-izquierda, .mensaje-adicional, .mensaje-derecha, .cita-blanca {
       position: absolute;
+      font-size: 1.4rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .cita-texto.visible, .mensaje-izquierda.visible, .mensaje-adicional.visible, .mensaje-derecha.visible, .cita-blanca.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cita-texto {
       top: 500px;
       width: 100%;
       text-align: center;
       color: white;
-      font-size: 1.4rem;
       padding: 0 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-    }
-    .cita-texto.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
     .mensaje-izquierda {
-      position: absolute;
       top: 700px;
       left: 5%;
       width: 40%;
-      font-size: 1.4rem;
       color: white;
       text-align: left;
       line-height: 1.5;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-    }
-    .mensaje-izquierda.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .mensaje-izquierda .amarillo {
-      color: #ffff00;
-      text-shadow: 0 0 10px #ffff00;
     }
     .mensaje-adicional {
-      position: absolute;
       top: 1200px;
       left: 5%;
       width: 90%;
-      font-size: 1.4rem;
       color: white;
       text-align: left;
       line-height: 1.5;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
     }
-    .mensaje-adicional.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .mensaje-derecha {
+      top: 1800px;
+      right: 5%;
+      width: 40%;
+      color: white;
+      text-align: right;
+      line-height: 1.5;
+    }
+    .cita-blanca {
+      top: 5900px;
+      width: 100%;
+      text-align: center;
+      color: black;
+      padding: 0 2rem;
+    }
+    .amarillo {
+      color: #ffff00;
+      text-shadow: 0 0 10px #ffff00;
     }
     .neon-cyan {
       color: #22d3ee;
@@ -177,22 +176,6 @@
     .neon-red {
       color: #ff0000;
       text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-    }
-    .cita-blanca {
-      position: absolute;
-      top: 5900px;
-      width: 100%;
-      text-align: center;
-      color: black;
-      font-size: 1.4rem;
-      padding: 0 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1s ease-out, transform 1s ease-out;
-    }
-    .cita-blanca.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
     .estrella {
       position: absolute;
@@ -261,6 +244,12 @@
       Un estudio publicado en <em>Frontiers in Psychology</em> reveló que los estudiantes que creen que su 
       <span class="neon-cyan">inteligencia</span> es algo fijo y no puede 
       <span class="neon-red">cambiar</span> tienen más probabilidades de sufrir problemas de salud mental y altos niveles de estrés académico.
+    </div>
+    <div class="mensaje-derecha" id="mensajeDerecha">
+      Esto lo relaciono directamente con la importancia de que los estudiantes conozcan de qué tratan las inteligencias múltiples. <br><br>
+      Sin esta información, es fácil que una persona piense que "Es boba" y que así será para siempre. <br><br>
+      Esa creencia genera problemas emocionales graves, como baja autoestima, ansiedad o incluso depresión. <br><br>
+      Cuando no entendemos que existen múltiples formas de ser inteligente, nos privamos de la oportunidad de descubrir y valorar nuestras propias capacidades.
     </div>
     <div class="titulo-blanco" id="tituloBlanco">
       todos somos inteligentes
@@ -384,8 +373,9 @@
 
     observer.observe(document.getElementById('citaTexto'));
     observer.observe(document.getElementById('mensajeIzquierda'));
-    observer.observe(document.getElementById('citaBlanca'));
     observer.observe(document.getElementById('mensajeAdicional'));
+    observer.observe(document.getElementById('mensajeDerecha'));
+    observer.observe(document.getElementById('citaBlanca'));
   </script>
 </body>
 </html>
