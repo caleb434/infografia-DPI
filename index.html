@@ -194,7 +194,6 @@
       position: absolute;
       width: 180px;
       height: auto;
-      opacity: 0.00078125;
       pointer-events: none;
     }
     audio {
@@ -243,6 +242,7 @@
     </div>
     <div id="voladores"></div>
     <div id="nubeImgs"></div>
+    <div id="estrellas"></div>
   </div>
 
   <script>
@@ -263,6 +263,15 @@
 
       const voladoresContainer = document.getElementById('voladores');
       const nubeImgs = document.getElementById('nubeImgs');
+      const estrellas = document.getElementById('estrellas');
+
+      for (let i = 0; i < 200; i++) {
+        const star = document.createElement('div');
+        star.className = 'estrella';
+        star.style.top = `${Math.random() * 10000}px`;
+        star.style.left = `${Math.random() * 1000}px`;
+        estrellas.appendChild(star);
+      }
 
       const rutas = ['1png.png', '2png.png', '3png.png', '4png.png', '5png.png'];
       const usados = [];
