@@ -194,7 +194,7 @@
       position: absolute;
       width: 180px;
       height: auto;
-      opacity: 0.15;
+      opacity: 0.5;
       pointer-events: none;
     }
     audio {
@@ -210,7 +210,7 @@
       <img src="corazon.png" class="corazon" alt="">
     </div>
     <button id="continuarBtn">continuar</button>
-    <div class="autor">De: Caleb Bermúdez</div>
+    <div class="autor">De: Caleb.B</div>
   </div>
 
   <audio id="audio1" src="Tentación (online-audio-converter.com).mp3" loop></audio>
@@ -260,6 +260,37 @@
       audio1.play();
       audio2.play();
       requestAnimationFrame(updateVolume);
+
+      const voladoresContainer = document.getElementById('voladores');
+      const rutas = ['1png.png', '2png.png', '3png.png', '4png.png', '5png.png'];
+      const usados = [];
+      rutas.forEach((nombre) => {
+        const img = document.createElement('img');
+        img.src = nombre;
+        img.classList.add('objeto-volador');
+        voladoresContainer.appendChild(img);
+        let posX, posY, attempts = 0;
+        do {
+          posX = Math.random() * (1000 - 180);
+          posY = Math.random() * (10000 - 180);
+          attempts++;
+        } while (usados.some(p => Math.abs(p.x - posX) < 150 && Math.abs(p.y - posY) < 150) && attempts < 10);
+        usados.push({ x: posX, y: posY });
+        let velX = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
+        let velY = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
+        function mover() {
+          const maxX = 1000 - 180;
+          const maxY = 10000 - 180;
+          posX += velX;
+          posY += velY;
+          if (posX <= 0 || posX >= maxX) velX *= -1;
+          if (posY <= 0 || posY >= maxY) velY *= -1;
+          img.style.left = `${posX}px`;
+          img.style.top = `${posY}px`;
+          requestAnimationFrame(mover);
+        }
+        mover();
+      });
     });
 
     function updateVolume() {
