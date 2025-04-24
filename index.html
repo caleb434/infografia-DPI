@@ -111,25 +111,28 @@
     const audioBlanco = document.getElementById('audioBlanco');
     audioNegro.volume = 1;
     audioBlanco.volume = 0;
-    audioNegro.play();
-    audioBlanco.play();
+
+    const iniciarAudios = () => {
+      audioNegro.play();
+      audioBlanco.play();
+    };
+
+    // Requiere interacción del usuario para autoplay
+    document.addEventListener('click', iniciarAudios, { once: true });
 
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
-      const totalScroll = document.body.scrollHeight - window.innerHeight;
-      const scrollPercent = scrollY / totalScroll;
+      const fadeStartPx = 4500;
+      const fadeEndPx = 5500;
 
-      const fadeStart = 0.45;
-      const fadeEnd = 0.55;
-
-      if (scrollPercent < fadeStart) {
+      if (scrollY <= fadeStartPx) {
         audioNegro.volume = 1;
         audioBlanco.volume = 0;
-      } else if (scrollPercent > fadeEnd) {
+      } else if (scrollY >= fadeEndPx) {
         audioNegro.volume = 0;
         audioBlanco.volume = 1;
       } else {
-        const factor = (scrollPercent - fadeStart) / (fadeEnd - fadeStart);
+        const factor = (scrollY - fadeStartPx) / (fadeEndPx - fadeStartPx);
         audioNegro.volume = 1 - factor;
         audioBlanco.volume = factor;
       }
@@ -137,4 +140,3 @@
   </script>
 </body>
 </html>
-
