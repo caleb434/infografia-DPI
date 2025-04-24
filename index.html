@@ -50,12 +50,12 @@
     }
     .corazon {
       position: absolute;
-      width: 10px;
-      height: 10px;
+      width: 24px;
+      height: 24px;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      animation: latir 1.5s infinite ease-in-out;
+      animation: latir 1.2s infinite ease-in-out;
     }
     @keyframes latir {
       0%, 100% { transform: translate(-50%, -50%) scale(1); }
@@ -111,6 +111,43 @@
       color: #22d3ee;
       text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
     }
+    .cita-texto {
+      position: absolute;
+      top: 500px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 1.4rem;
+      padding: 0 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .cita-texto.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mensaje-izquierda {
+      position: absolute;
+      top: 900px;
+      left: 5%;
+      width: 40%;
+      font-size: 1.4rem;
+      color: white;
+      text-align: left;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .mensaje-izquierda.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mensaje-izquierda .amarillo {
+      color: #ffff00;
+      text-shadow: 0 0 10px #ffff00;
+    }
     .estrella {
       position: absolute;
       width: 6px;
@@ -162,6 +199,15 @@
       todos somos bobos
       <div class="subtitulo">(en algunas cosas)</div>
     </div>
+    <div class="cita-texto" id="citaTexto">
+      “La inteligencia se mide con el coeficiente intelectual.”<br>
+      — Mentalidad del siglo XX.
+    </div>
+    <div class="mensaje-izquierda" id="mensajeIzquierda">
+      Muchas veces nos podemos llegar a sentir<br>
+      mal si nos <span class="amarillo">comparamos</span> con personas<br>
+      que pueden hacer lo que nosotros no
+    </div>
     <div class="titulo-blanco" id="tituloBlanco">
       todos somos inteligentes
       <div class="sub-blanco">(más de lo que crees)</div>
@@ -203,78 +249,16 @@
       requestAnimationFrame(updateVolume);
     }
 
-    const contenedor = document.getElementById('infografia');
-    const voladoresContainer = document.getElementById('voladores');
-    const nubeImgs = document.getElementById('nubeImgs');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.4 });
 
-    const rutas = ['1png.png', '2png.png', '3png.png', '4png.png', '5png.png'];
-    const usados = [];
-    rutas.forEach((nombre) => {
-      const img = document.createElement('img');
-      img.src = nombre;
-      img.classList.add('objeto-volador');
-      voladoresContainer.appendChild(img);
-      let posX, posY, attempts = 0;
-      do {
-        posX = Math.random() * (1000 - 180);
-        posY = Math.random() * (4500 - 180);
-        attempts++;
-      } while (usados.some(p => Math.abs(p.x - posX) < 150 && Math.abs(p.y - posY) < 150) && attempts < 10);
-      usados.push({ x: posX, y: posY });
-      let velX = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
-      let velY = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
-      function mover() {
-        const maxX = 1000 - 180;
-        const maxY = 4500 - 180;
-        posX += velX;
-        posY += velY;
-        if (posX <= 0 || posX >= maxX) velX *= -1;
-        if (posY <= 0 || posY >= maxY) velY *= -1;
-        img.style.left = `${posX}px`;
-        img.style.top = `${posY}px`;
-        requestAnimationFrame(mover);
-      }
-      mover();
-    });
-
-    const tiposNube = ['nube1.png', 'nube2.png', 'nube3.png', 'nube4.png', 'nube5.png'];
-    const cantidadNubes = 20;
-    for (let i = 0; i < cantidadNubes; i++) {
-      const nube = document.createElement('img');
-      nube.classList.add('nube-img');
-      nube.src = tiposNube[i % tiposNube.length];
-      const escala = 0.8 + Math.random() * 1.2;
-      let x = -300 + Math.random() * 1300;
-      const y = 5500 + Math.random() * 4500;
-      const velocidad = 0.3 + Math.random() * 0.4;
-      nube.style.top = `${y}px`;
-      nube.style.transform = `scale(${escala})`;
-      nube.style.left = `${x}px`;
-      nubeImgs.appendChild(nube);
-      function animarNube() {
-        x += velocidad;
-        if (x > 1300) x = -300;
-        nube.style.left = `${x}px`;
-        requestAnimationFrame(animarNube);
-      }
-      animarNube();
-    }
-
-    const cantidadEstrellas = 150;
-    const colores = ['#fceabb', '#ffc3a0', '#c2e9fb', '#ffd194', '#fff5c3'];
-    for (let i = 0; i < cantidadEstrellas; i++) {
-      const estrella = document.createElement('div');
-      estrella.classList.add('estrella');
-      const x = Math.random() * 1000;
-      const y = Math.random() * 5000;
-      const color = colores[Math.floor(Math.random() * colores.length)];
-      const delay = Math.random() * 5;
-      estrella.style.left = `${x}px`;
-      estrella.style.top = `${y}px`;
-      estrella.style.background = color;
-      estrella.style.animationDelay = `${delay}s`;
-      contenedor.appendChild(estrella);
-    }
+    observer.observe(document.getElementById('citaTexto'));
+    observer.observe(document.getElementById('mensajeIzquierda'));
   </script>
 </body>
 </html>
