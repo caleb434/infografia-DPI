@@ -148,6 +148,22 @@
       color: #ffff00;
       text-shadow: 0 0 10px #ffff00;
     }
+    .cita-blanca {
+      position: absolute;
+      top: 5900px;
+      width: 100%;
+      text-align: center;
+      color: black;
+      font-size: 1.4rem;
+      padding: 0 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .cita-blanca.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
     .estrella {
       position: absolute;
       width: 6px;
@@ -215,6 +231,10 @@
       todos somos inteligentes
       <div class="sub-blanco">(más de lo que crees)</div>
     </div>
+    <div class="cita-blanca" id="citaBlanca">
+      no existe una única forma de ser inteligente<br>
+      — Howard Gardner
+    </div>
     <div id="voladores"></div>
     <div id="nubeImgs"></div>
   </div>
@@ -262,6 +282,7 @@
 
     observer.observe(document.getElementById('citaTexto'));
     observer.observe(document.getElementById('mensajeIzquierda'));
+    observer.observe(document.getElementById('citaBlanca'));
   </script>
 </body>
 </html>
