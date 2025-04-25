@@ -6,6 +6,7 @@
   <title>Infografía Scroll Larga</title>
   <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* --- Estilos CSS (sin cambios relevantes para esta funcionalidad, se mantienen los anteriores) --- */
     body, html {
       margin: 0;
       padding: 0;
@@ -77,7 +78,7 @@
     }
     .infografia {
       display: none;
-      width: 1000px;
+      width: 1000px; /* Considera usar % o vw para mejor responsividad */
       height: 10000px;
       margin: 0 auto;
       background: linear-gradient(to bottom,
@@ -88,7 +89,7 @@
         #ffffff 100%
       );
       position: relative;
-      overflow: hidden;
+      overflow: hidden; /* Se mantiene para controlar elementos internos */
     }
     .titulo-principal, .titulo-blanco {
       font-size: 3rem;
@@ -116,17 +117,20 @@
       color: #22d3ee;
       text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
     }
-    .cita-texto, .mensaje-izquierda, .mensaje-adicional, .mensaje-derecha, .cita-blanca {
+
+    /* Estilos para elementos que aparecen con scroll */
+    .cita-texto, #izquierdaContenido, .mensaje-adicional, .mensaje-derecha, .cita-blanca {
       position: absolute;
       font-size: 1.4rem;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 1s ease-out, transform 1s ease-out;
     }
-    .cita-texto.visible, .mensaje-izquierda.visible, .mensaje-adicional.visible, .mensaje-derecha.visible, .cita-blanca.visible {
+    .cita-texto.visible, #izquierdaContenido.visible, .mensaje-adicional.visible, .mensaje-derecha.visible, .cita-blanca.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
     .cita-texto {
       top: 500px;
       width: 100%;
@@ -134,16 +138,49 @@
       color: white;
       padding: 0 2rem;
     }
-    .mensaje-izquierda {
-      top: 700px;
+
+    /* Contenedor para texto izquierdo y video */
+    #izquierdaContenido {
+      top: 800px;
       left: 5%;
-      width: 40%;
+      width: 90%; /* Ajusta según necesidad */
+      display: flex;
+      align-items: flex-start; /* Alinea arriba */
+       /* Asegura que no bloquee clics si es invisible */
+      pointer-events: none;
+    }
+    #izquierdaContenido.visible {
+       /* Permite interacción cuando es visible */
+       pointer-events: auto;
+    }
+
+
+    /* Estilos modificados para el texto izquierdo */
+    .mensaje-izquierda {
+      width: 50%; /* Ajusta para dejar espacio al video */
       color: white;
       text-align: left;
       line-height: 1.5;
+      padding-right: 20px; /* Espacio entre texto y video */
+      font-size: 1.4rem; /* Asegura que el tamaño de fuente se mantenga */
     }
+
+    /* Contenedor para el video */
+    #videoIzquierda {
+      margin-top: 50px;
+        width: 50%; /* Ajusta para ocupar el espacio restante */
+    }
+    #videoIzquierda video {
+        max-width: 100%; /* Asegura que el video no se desborde */
+        height: auto;
+        display: block; /* Evita espacio extra debajo */
+        border: 1px solid #555; /* Borde opcional */
+        /* cursor: pointer; Opcional: indica que se puede interactuar */
+    }
+
+
     .mensaje-adicional {
-      top: 1200px;
+      top: 1200px; /* Ajusta si el contenido anterior ocupa más espacio */
       left: 5%;
       width: 90%;
       color: white;
@@ -151,8 +188,8 @@
       line-height: 1.5;
     }
     .mensaje-derecha {
-      top: 1500px;
-      right: 0%;
+      top: 1500px; /* Ajusta si el contenido anterior ocupa más espacio */
+      right: 5%; /* Cambiado de 0% a 5% para consistencia */
       width: 50%;
       color: white;
       text-align: right;
@@ -232,17 +269,27 @@
       “La inteligencia se mide con el coeficiente intelectual.”<br>
       — Mentalidad del siglo XX.
     </div>
-    <div class="mensaje-izquierda" id="mensajeIzquierda">
-      Muchas veces nos podemos llegar a sentir bobos<br>
-      si nos <span class="amarillo">comparamos</span> con personas que tienen<br>
-      habilidades más desarrolladas que nosotros.<br>
-      Pero lo que muchas veces ignoramos<br>
-      es que no todos fuimos creados de la misma manera.<br>
-      Y eso también está bien.
+
+    <div id="izquierdaContenido">
+        <div class="mensaje-izquierda" id="mensajeIzquierda">
+          Muchas veces nos podemos llegar a sentir bobos<br>
+          si nos <span class="amarillo">comparamos</span> con personas que tienen<br>
+          habilidades más desarrolladas que nosotros.<br>
+          Pero lo que muchas veces ignoramos<br>
+          es que no todos fuimos creados de la misma manera.<br>
+          Y eso también está bien.
+        </div>
+        <div id="videoIzquierda">
+          <video autoplay muted loop playsinline>
+              <source src="tu-video.mp4" type="video/mp4">
+              Tu navegador no soporta la etiqueta de video.
+          </video>
+        </div>
     </div>
+
     <div class="mensaje-adicional" id="mensajeAdicional">
-      Un estudio publicado en <em>Frontiers in Psychology</em> reveló que los estudiantes que creen que su 
-      <span class="neon-cyan">inteligencia</span> es algo fijo y no puede 
+      Un estudio publicado en <em>Frontiers in Psychology</em> reveló que los estudiantes que creen que su
+      <span class="neon-cyan">inteligencia</span> es algo fijo y no puede
       <span class="neon-red">cambiar</span> tienen más probabilidades de sufrir problemas de salud mental y altos niveles de estrés académico.
     </div>
     <div class="mensaje-derecha" id="mensajeDerecha">
@@ -276,106 +323,151 @@
       infografia.style.display = 'block';
       audio1.volume = 1;
       audio2.volume = 0;
-      audio1.play();
-      audio2.play();
+      // Intenta iniciar audios aquí, el navegador puede requerir interacción
+      audio1.play().catch(e => console.log("Audio 1 necesita interacción para iniciar"));
+      audio2.play().catch(e => console.log("Audio 2 necesita interacción para iniciar"));
+      audio2.pause(); // Asegura que el audio 2 comience pausado
       requestAnimationFrame(updateVolume);
 
-      const voladoresContainer = document.getElementById('voladores');
-      const nubeImgs = document.getElementById('nubeImgs');
-      const estrellas = document.getElementById('estrellas');
+      // --- Código para estrellas, voladores y nubes (sin cambios) ---
+       const voladoresContainer = document.getElementById('voladores');
+       const nubeImgs = document.getElementById('nubeImgs');
+       const estrellas = document.getElementById('estrellas');
 
-      for (let i = 0; i < 200; i++) {
-        const star = document.createElement('div');
-        star.className = 'estrella';
-        star.style.top = `${Math.random() * 10000}px`;
-        star.style.left = `${Math.random() * 1000}px`;
-        estrellas.appendChild(star);
-      }
+       for (let i = 0; i < 200; i++) {
+         const star = document.createElement('div');
+         star.className = 'estrella';
+         star.style.top = `${Math.random() * 10000}px`;
+         star.style.left = `${Math.random() * 1000}px`; // Ajusta si el ancho de infografia cambia
+         estrellas.appendChild(star);
+       }
 
-      const rutas = ['1png.png', '2png.png', '3png.png', '4png.png', '5png.png'];
-      const usados = [];
-      rutas.forEach((nombre) => {
-        const img = document.createElement('img');
-        img.src = nombre;
-        img.classList.add('objeto-volador');
-        img.style.opacity = '0.3';
-        voladoresContainer.appendChild(img);
-        let posX, posY, attempts = 0;
-        do {
-          posX = Math.random() * (1000 - 180);
-          posY = Math.random() * (4500 - 180);
-          attempts++;
-        } while (usados.some(p => Math.abs(p.x - posX) < 150 && Math.abs(p.y - posY) < 150) && attempts < 10);
-        usados.push({ x: posX, y: posY });
-        let velX = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
-        let velY = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
-        function mover() {
-          const maxX = 1000 - 180;
-          const maxY = 4500 - 180;
-          posX += velX;
-          posY += velY;
-          if (posX <= 0 || posX >= maxX) velX *= -1;
-          if (posY <= 0 || posY >= maxY) velY *= -1;
-          img.style.left = `${posX}px`;
-          img.style.top = `${posY}px`;
-          requestAnimationFrame(mover);
-        }
-        mover();
-      });
+       const rutas = ['1png.png', '2png.png', '3png.png', '4png.png', '5png.png'];
+       const usados = [];
+       rutas.forEach((nombre) => {
+         const img = document.createElement('img');
+         img.src = nombre;
+         img.classList.add('objeto-volador');
+         img.style.opacity = '0.3';
+         voladoresContainer.appendChild(img);
+         let posX, posY, attempts = 0;
+         const anchoInfografia = infografia.offsetWidth; // Usar ancho real
+         const anchoObjeto = 180;
+         do {
+           posX = Math.random() * (anchoInfografia - anchoObjeto);
+           posY = Math.random() * (4500 - anchoObjeto); // Asumiendo 4500px como límite superior
+           attempts++;
+         } while (usados.some(p => Math.abs(p.x - posX) < 150 && Math.abs(p.y - posY) < 150) && attempts < 10);
+         usados.push({ x: posX, y: posY });
+         let velX = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
+         let velY = (Math.random() * 1.5 + 0.5) * (Math.random() < 0.5 ? 1 : -1);
+         function mover() {
+           const maxX = anchoInfografia - anchoObjeto;
+           const maxY = 4500 - anchoObjeto;
+           posX += velX;
+           posY += velY;
+           if (posX <= 0 || posX >= maxX) velX *= -1;
+           if (posY <= 0 || posY >= maxY) velY *= -1;
+           img.style.left = `${posX}px`;
+           img.style.top = `${posY}px`;
+           requestAnimationFrame(mover);
+         }
+         mover();
+       });
 
-      const tiposNube = ['nube1.png', 'nube2.png', 'nube3.png', 'nube4.png', 'nube5.png'];
-      const cantidadNubes = 20;
-      for (let i = 0; i < cantidadNubes; i++) {
-        const nube = document.createElement('img');
-        nube.classList.add('nube-img');
-        nube.src = tiposNube[i % tiposNube.length];
-        const escala = 0.8 + Math.random() * 1.2;
-        let x = -300 + Math.random() * 1300;
-        const y = 5500 + Math.random() * 4500;
-        const velocidad = 0.3 + Math.random() * 0.4;
-        nube.style.top = `${y}px`;
-        nube.style.transform = `scale(${escala})`;
-        nube.style.left = `${x}px`;
-        nubeImgs.appendChild(nube);
-        function animarNube() {
-          x += velocidad;
-          if (x > 1300) x = -300;
-          nube.style.left = `${x}px`;
-          requestAnimationFrame(animarNube);
-        }
-        animarNube();
-      }
-    });
+       const tiposNube = ['nube1.png', 'nube2.png', 'nube3.png', 'nube4.png', 'nube5.png'];
+       const cantidadNubes = 20;
+       const anchoInfografiaNubes = infografia.offsetWidth;
+       for (let i = 0; i < cantidadNubes; i++) {
+         const nube = document.createElement('img');
+         nube.classList.add('nube-img');
+         nube.src = tiposNube[i % tiposNube.length];
+         const escala = 0.8 + Math.random() * 1.2;
+         let x = -300 + Math.random() * (anchoInfografiaNubes + 300); // Posición inicial más aleatoria
+         const y = 5500 + Math.random() * 4500;
+         const velocidad = 0.3 + Math.random() * 0.4;
+         nube.style.top = `${y}px`;
+         nube.style.transform = `scale(${escala})`;
+         nube.style.left = `${x}px`;
+         nubeImgs.appendChild(nube);
+         function animarNube() {
+           x += velocidad;
+           if (x > anchoInfografiaNubes) x = -300; // Regresa cuando sale por la derecha
+           nube.style.left = `${x}px`;
+           requestAnimationFrame(animarNube);
+         }
+         animarNube();
+       }
+       // --- Fin código para estrellas, voladores y nubes ---
 
-    function updateVolume() {
-      const y = window.scrollY;
-      if (y < 4500) {
-        audio1.volume = 1;
-        audio2.volume = 0;
-      } else if (y >= 5500) {
-        audio1.volume = 0;
-        audio2.volume = 1;
-      } else {
-        const ratio = (y - 4500) / 1000;
-        audio1.volume = 1 - ratio;
-        audio2.volume = ratio;
-      }
-      requestAnimationFrame(updateVolume);
-    }
+    }); // Fin de btnContinuar.addEventListener
 
+    // --- Función updateVolume (sin cambios) ---
+     function updateVolume() {
+       const y = window.scrollY;
+       if (!audio1.paused || !audio2.paused) { // Solo actualiza si alguno está sonando (o intentando)
+           if (y < 4500) {
+               audio1.volume = Math.min(1, audio1.volume + 0.02); // Fade in/out suave
+               audio2.volume = Math.max(0, audio2.volume - 0.02);
+               if (audio2.volume === 0) audio2.pause();
+               if (audio1.paused && audio1.volume > 0) audio1.play().catch(e => {});
+           } else if (y >= 5500) {
+               audio1.volume = Math.max(0, audio1.volume - 0.02);
+               audio2.volume = Math.min(1, audio2.volume + 0.02);
+                if (audio1.volume === 0) audio1.pause();
+                if (audio2.paused && audio2.volume > 0) audio2.play().catch(e => {});
+           } else {
+               const ratio = (y - 4500) / 1000;
+               audio1.volume = 1 - ratio;
+               audio2.volume = ratio;
+               if (audio1.paused && audio1.volume > 0) audio1.play().catch(e => {});
+               if (audio2.paused && audio2.volume > 0) audio2.play().catch(e => {});
+           }
+       }
+       requestAnimationFrame(updateVolume);
+     }
+    // --- Fin función updateVolume ---
+
+    // --- IntersectionObserver MODIFICADO ---
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
+        // Encuentra el video DENTRO del target del observer (que es #izquierdaContenido)
+        const videoElement = entry.target.querySelector('video');
+
         if (entry.isIntersecting) {
+          // El elemento está visible
           entry.target.classList.add('visible');
+          if (videoElement) {
+            videoElement.currentTime = 0; // Reinicia el video al principio
+            const playPromise = videoElement.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Autoplay fue prevenido, usualmente porque no estaba 'muted'
+                    // o por políticas del navegador. Como está muted, es raro llegar aquí.
+                    console.error("Error al intentar reproducir video:", error);
+                });
+            }
+          }
+        } else {
+          // El elemento ya no está visible
+          entry.target.classList.remove('visible'); // Opcional: quitar la clase si quieres que la animación se revierta
+          if (videoElement) {
+            videoElement.pause(); // Pausa el video
+          }
         }
       });
-    }, { threshold: 0.4 });
+    }, {
+       threshold: 0.4 // Porcentaje del elemento que debe estar visible para disparar (ajusta si es necesario)
+    });
 
+    // Observa los elementos necesarios
     observer.observe(document.getElementById('citaTexto'));
-    observer.observe(document.getElementById('mensajeIzquierda'));
+    observer.observe(document.getElementById('izquierdaContenido')); // Este controla la aparición del contenedor y el play/pause del video
     observer.observe(document.getElementById('mensajeAdicional'));
     observer.observe(document.getElementById('mensajeDerecha'));
     observer.observe(document.getElementById('citaBlanca'));
+    // --- Fin IntersectionObserver ---
+
   </script>
 </body>
 </html>
