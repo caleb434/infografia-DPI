@@ -119,14 +119,14 @@
     }
 
     /* Estilos para elementos que aparecen con scroll */
-    .cita-texto, #izquierdaContenido, .mensaje-adicional, .mensaje-derecha, .cita-blanca {
+    .cita-texto, #izquierdaContenido, .mensaje-adicional, .mensaje-derecha, .cita-blanca, .mensaje-derecha-adicional, .texto-mitad {
       position: absolute;
       font-size: 1.4rem;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 1s ease-out, transform 1s ease-out;
     }
-    .cita-texto.visible, #izquierdaContenido.visible, .mensaje-adicional.visible, .mensaje-derecha.visible, .cita-blanca.visible {
+    .cita-texto.visible, #izquierdaContenido.visible, .mensaje-adicional.visible, .mensaje-derecha.visible, .cita-blanca.visible, .mensaje-derecha-adicional.visible, .texto-mitad.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -178,6 +178,18 @@
         /* cursor: pointer; Opcional: indica que se puede interactuar */
     }
 
+    #videoDerecha {
+      position: absolute;
+      top: 1700px; /* Alineado con el texto a la derecha */
+      right: 50%; /* Ajustado para estar al lado del texto */
+      width: 45%; /* Ajusta el ancho según sea necesario */
+    }
+    #videoDerecha video {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid #555;
+    }
 
     .mensaje-adicional {
       top: 1200px; /* Ajusta si el contenido anterior ocupa más espacio */
@@ -194,6 +206,23 @@
       color: white;
       text-align: right;
       line-height: 1.5;
+    }
+    .mensaje-derecha-adicional {
+      position: absolute;
+      top: 2300px; /* Ajusta según la posición del texto */
+      width: 90%; /* Aumenta el ancho para centrar */
+      color: white;
+      text-align: center; /* Centraliza el texto */
+      line-height: 1.5;
+      font-size: 1.4rem; /* Ajusta el tamaño para que coincida con los otros textos */
+      margin: 0 auto; /* Asegura que el texto esté centrado */
+      opacity: 0; /* Inicialmente invisible */
+      transform: translateY(20px); /* Coincide con la animación de otros textos */
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .mensaje-derecha-adicional.visible {
+      opacity: 1; /* Hace visible el texto */
+      transform: translateY(0); /* Aplica la animación */
     }
     .cita-blanca {
       top: 5900px;
@@ -213,6 +242,14 @@
     .neon-red {
       color: #ff0000;
       text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+    }
+    .neon-pink {
+      color: #c084fc;
+      text-shadow: 0 0 10px #c084fc, 0 0 20px #c084fc;
+    }
+    .neon-yellow {
+      color: #ffff00;
+      text-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
     }
     .estrella {
       position: absolute;
@@ -237,12 +274,85 @@
     }
     .objeto-volador {
       position: absolute;
-      width: 180px;
+      width: 117px; /* 35% smaller than the original 180px */
       height: auto;
       pointer-events: none;
     }
     audio {
       display: none;
+    }
+    @keyframes temblor {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-2px, -2px); }
+      50% { transform: translate(2px, 2px); }
+      75% { transform: translate(-2px, 2px); }
+    }
+    .temblor {
+      display: inline-block; /* Necesario para aplicar transform */
+      animation: temblor 0.5s infinite; /* Asegura que la animación se repita */
+    }
+    .imagenes-grandes {
+      position: absolute;
+      top: 2500px; /* Ajusta según la posición del texto */
+      width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+      display: flex;
+      flex-direction: column; /* Coloca las imágenes una debajo de la otra */
+      align-items: center; /* Centra las imágenes horizontalmente */
+      gap: 115px; /* Reduce aún más el espaciado entre las imágenes */
+    }
+    .imagen-contenedor {
+      display: flex;
+      flex-direction: column; /* Coloca los elementos en columna */
+      align-items: center; /* Centra los elementos horizontalmente */
+      text-align: center; /* Centra el texto */
+      margin-bottom: 50px; /* Espaciado entre imágenes */
+      opacity: 0; /* Inicialmente invisible */
+      transform: translateY(20px); /* Coincide con la animación de otros elementos */
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .imagen-contenedor.visible {
+      opacity: 1; /* Hace visible el contenedor */
+      transform: translateY(0); /* Aplica la animación */
+    }
+    .imagenes-grandes img {
+      width: 300px; /* Tamaño relativamente grande */
+      height: auto;
+      border: 2px solid white; /* Opcional: agrega un borde */
+      border-radius: 10px; /* Opcional: redondea las esquinas */
+      margin-bottom: 0; /* Asegura que no haya espacio entre la imagen y el título */
+      display: block; /* Asegura que la imagen ocupe toda la línea */
+      margin: 0 auto; /* Centra la imagen horizontalmente */
+    }
+    .titulo-imagen {
+      font-size: 1.8rem;
+      color: white;
+      margin-top: 0; /* Mueve el título un poco hacia abajo */
+      margin-bottom: 20px; /* Mantiene el espacio debajo del título */
+      text-align: center;
+    }
+    .descripcion-imagen {
+      font-size: 1.2rem;
+      color: white;
+      margin-top: 20px; /* Mantiene el espacio encima de la descripción */
+      text-align: center;
+      line-height: 1.5;
+      padding: 0 20px;
+    }
+    .texto-mitad {
+      position: absolute;
+      top: 4700px; /* Ajusta según la posición deseada */
+      width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      color: #ff1493; /* Cambia a rosa oscuro neon */
+      text-shadow: 0 0 10px #ff1493, 0 0 20px #ff1493;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .texto-mitad.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -280,9 +390,11 @@
           Y eso también está bien.
         </div>
         <div id="videoIzquierda">
-          <video autoplay muted loop playsinline>
-              <source src="tu-video.mp4" type="video/mp4">
-              Tu navegador no soporta la etiqueta de video.
+          <video autoplay muted loop playsinline onerror="console.error('Error al cargar el video')">
+            <source src="tu-video.mp4" type="video/mp4">
+            <source src="tu-video.webm" type="video/webm">
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"> <!-- Video de prueba -->
+            Tu navegador no soporta la etiqueta de video.
           </video>
         </div>
     </div>
@@ -293,10 +405,45 @@
       <span class="neon-red">cambiar</span> tienen más probabilidades de sufrir problemas de salud mental y altos niveles de estrés académico.
     </div>
     <div class="mensaje-derecha" id="mensajeDerecha">
-      Esto lo relaciono directamente con la importancia de que los estudiantes conozcan de qué tratan las inteligencias múltiples. <br><br>
-      Sin esta información, es fácil que una persona piense que "Es boba" y que así será para siempre. <br><br>
+      Esto lo relaciono directamente con la importancia de que los estudiantes conozcan de qué tratan las <span class="neon-pink">inteligencias múltiples</span>. <br><br>
+      Sin esta información, es fácil que una persona piense que "<span class="temblor neon-red">es boba</span>" y que así será para siempre. <br><br>
       Esa creencia genera problemas emocionales graves, como baja autoestima, ansiedad o incluso depresión. <br><br>
-      Cuando no entendemos que existen múltiples formas de ser inteligente, nos privamos de la oportunidad de descubrir y valorar nuestras propias capacidades.
+      Cuando no entendemos que existen múltiples formas de ser inteligente, nos privamos de la oportunidad de descubrir y <span class="neon-yellow">valorar</span> nuestras propias capacidades.
+    </div>
+    <div class="mensaje-derecha-adicional" id="mensajeDerechaAdicional">
+      Estos son algunos ejemplos de personas que fueron tachadas de bobas por no tener una inteligencia desarrollada, pero destacaron con aquella inteligencia que sí tenían desarrollada.
+    </div>
+    <div class="imagenes-grandes">
+      <div class="imagen-contenedor" id="imagenMoises">
+        <img src="Moises.jpg" alt="Espacio para imagen 1">
+        <div class="titulo-imagen">Moshe Rabbenu (Moisés)</div>
+        <div class="descripcion-imagen">
+          Fue un hombre con una inteligencia lingüística muy poco desarrollada, pero una inteligencia intrapersonal muy desarrollada, lo que lo llevó a ser el líder más importante de su generación.
+        </div>
+      </div>
+      <div class="imagen-contenedor" id="imagenSimone">
+        <img src="Simone Biles.jpeg" alt="Espacio para imagen 2">
+        <div class="titulo-imagen">Simone Biles</div>
+        <div class="descripcion-imagen">
+          Es una mujer con una inteligencia intrapersonal poco desarrollada pero una inteligencia corporal-cinestésica muy bien desarrollada, considerada una de las mejores gimnastas de todos los tiempos
+        </div>
+      </div>
+      <div class="imagen-contenedor" id="imagenBeethoven">
+        <img src="Beethoven.jpeg" alt="Espacio para imagen 3">
+        <div class="titulo-imagen">Ludwig van Beethoven</div>
+        <div class="descripcion-imagen">
+          Fue un hombre con una baja inteligencia interpersonal desarrollada, pero una inteligencia musical tan desarrollada que fue capaz de crear piezas musicales aun estando sordo, marcando una nueva era en la música clásica
+        </div>
+      </div>
+    </div>
+    <div class="texto-mitad" id="textoMitad">¿Qué podemos aprender de esto?</div>
+    <div id="videoDerecha">
+      <video autoplay muted loop playsinline onerror="console.error('Error al cargar el video')">
+        <source src="video_arbol_h264.mp4" type="video/mp4">
+        <source src="video_arbol_optimizado.webm" type="video/webm">
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"> <!-- Video de prueba -->
+        Tu navegador no soporta la etiqueta de video.
+      </video>
     </div>
     <div class="titulo-blanco" id="tituloBlanco">
       todos somos inteligentes
@@ -352,7 +499,7 @@
          voladoresContainer.appendChild(img);
          let posX, posY, attempts = 0;
          const anchoInfografia = infografia.offsetWidth; // Usar ancho real
-         const anchoObjeto = 180;
+         const anchoObjeto = 117;
          do {
            posX = Math.random() * (anchoInfografia - anchoObjeto);
            posY = Math.random() * (4500 - anchoObjeto); // Asumiendo 4500px como límite superior
@@ -466,6 +613,12 @@
     observer.observe(document.getElementById('mensajeAdicional'));
     observer.observe(document.getElementById('mensajeDerecha'));
     observer.observe(document.getElementById('citaBlanca'));
+    observer.observe(document.getElementById('videoDerecha')); // Observa el nuevo contenedor de video
+    observer.observe(document.getElementById('mensajeDerechaAdicional')); // Observa el nuevo texto para animación
+    observer.observe(document.getElementById('imagenMoises'));
+    observer.observe(document.getElementById('imagenSimone'));
+    observer.observe(document.getElementById('imagenBeethoven'));
+    observer.observe(document.getElementById('textoMitad'));
     // --- Fin IntersectionObserver ---
 
   </script>
