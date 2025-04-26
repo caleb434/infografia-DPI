@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Infografía Desarrollo Personal/Caleb</title>
+  <title>Infografía Scroll Larga</title>
   <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* --- Estilos CSS (sin cambios relevantes para esta funcionalidad, se mantienen los anteriores) --- */
@@ -146,6 +146,7 @@
       width: 90%; /* Ajusta según necesidad */
       display: flex;
       align-items: flex-start; /* Alinea arriba */
+      justify-content: flex-end; /* Mueve el contenido hacia la derecha */
        /* Asegura que no bloquee clics si es invisible */
       pointer-events: none;
     }
@@ -169,6 +170,7 @@
     #videoIzquierda {
       margin-top: 50px;
         width: 50%; /* Ajusta para ocupar el espacio restante */
+        margin-left: 20px; /* Mueve el video un poco más a la derecha */
     }
     #videoIzquierda video {
         max-width: 100%; /* Asegura que el video no se desborde */
@@ -291,6 +293,17 @@
       display: inline-block; /* Necesario para aplicar transform */
       animation: temblor 0.5s infinite; /* Asegura que la animación se repita */
     }
+    .temblor-rapido {
+      display: inline-block; /* Necessary for applying transform */
+      animation: temblor-rapido 0.1s infinite; /* Fast shaking effect */
+    }
+
+    @keyframes temblor-rapido {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-2px, -2px); }
+      50% { transform: translate(2px, 2px); }
+      75% { transform: translate(-2px, 2px); }
+    }
     .imagenes-grandes {
       position: absolute;
       top: 2500px; /* Ajusta según la posición del texto */
@@ -340,19 +353,91 @@
     }
     .texto-mitad {
       position: absolute;
-      top: 4700px; /* Ajusta según la posición deseada */
+      top: 4300px; /* Adjusted to move it even higher */
       width: 100%;
       text-align: center;
       font-size: 2rem;
-      color: #ff1493; /* Cambia a rosa oscuro neon */
-      text-shadow: 0 0 10px #ff1493, 0 0 20px #ff1493;
+      color: #ffffff; /* White neon */
+      text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 1s ease-out, transform 1s ease-out;
+      animation: parpadeo-lento 3s infinite; /* Slow blinking animation */
     }
     .texto-mitad.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+    @keyframes parpadeo-lento {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .titulo-imagen-moshe {
+      color: #ffd700; /* Gold (predominant color for Moshe's image) */
+      text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+    }
+    .titulo-imagen-simone {
+      color: #00ffff; /* Cyan (predominant color for Simone's image) */
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    }
+    .titulo-imagen-beethoven {
+      color: #ff4500; /* Orange-red (predominant color for Beethoven's image) */
+      text-shadow: 0 0 10px #ff4500, 0 0 20px #ff4500;
+    }
+    .mensaje-blanco {
+      position: absolute;
+      top: 6200px; /* Positioned below the Howard Gardner quote */
+      width: 90%;
+      left: 5%; /* Align more to the left */
+      color: black;
+      text-align: left; /* Align text to the left */
+      line-height: 1.5;
+      font-size: 1.4rem;
+      opacity: 0; /* Initially hidden */
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .mensaje-blanco.visible {
+      opacity: 1; /* Make it visible */
+      transform: translateY(0);
+    }
+    #scrollDownBtn {
+      display: none; /* Initially hidden */
+      position: fixed;
+      bottom: 30px; /* Increased spacing from the bottom */
+      right: 20px;
+      z-index: 10000;
+      background-color: #22d3ee;
+      color: white;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
+      transition: background-color 0.3s ease;
+    }
+    #scrollDownBtn:hover {
+      background-color: #0ea5e9;
+    }
+    #stopScrollBtn {
+      display: none; /* Initially hidden */
+      position: fixed;
+      bottom: 80px; /* Increased spacing from the "Bajar" button */
+      right: 20px;
+      z-index: 10000;
+      background-color: #ff4d4d;
+      color: white;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff4d4d;
+      transition: background-color 0.3s ease;
+    }
+    #stopScrollBtn:hover {
+      background-color: #e60000;
     }
   </style>
 </head>
@@ -377,38 +462,34 @@
     </div>
     <div class="cita-texto" id="citaTexto">
       “La inteligencia se mide con el coeficiente intelectual.”<br>
-      — Mentalidad del siglo XX.
+      <span class="neon-yellow">— Mentalidad del siglo XX.</span>
     </div>
 
-    <div id="izquierdaContenido">
+    <div id="izquierdaContenido" style="justify-content: flex-end;">
         <div class="mensaje-izquierda" id="mensajeIzquierda">
-          Muchas veces nos podemos llegar a sentir bobos<br>
-          si nos <span class="amarillo">comparamos</span> con personas que tienen<br>
-          habilidades más desarrolladas que nosotros.<br>
-          Pero lo que muchas veces ignoramos<br>
-          es que no todos fuimos creados de la misma manera.<br>
-          Y eso también está bien.
+          Siempre noto que al compararnos con personas que dominan áreas en las que nosotros no brillamos, podemos llegar a sentirnos bobos.<br>
+          Sin embargo, lo que muchas veces ignoramos es que no todos fuimos creados iguales.<br>
+          Y eso está bien.
         </div>
-        <div id="videoIzquierda">
-          <video autoplay muted loop playsinline onerror="console.error('Error al cargar el video')">
-            <source src="tu-video.mp4" type="video/mp4">
-            <source src="tu-video.webm" type="video/webm">
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"> <!-- Video de prueba -->
-            Tu navegador no soporta la etiqueta de video.
-          </video>
+        <div id="videoIzquierda" style="margin-left: 50px; position: relative;">
+          <iframe width="100%" height="315" src="https://www.youtube.com/embed/wU4HPlq0AEE?autoplay=1&loop=1&playlist=wU4HPlq0AEE&controls=0" 
+                  title="YouTube video player" frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen></iframe>
+          <div style="position: absolute; top: 10px; left: 80px; color: #32cd32; text-shadow: 0 0 10px #32cd32, 0 0 20px #32cd32; font-size: 1rem;">
+            🌿 Inteligencia naturalista
+          </div>
         </div>
     </div>
 
     <div class="mensaje-adicional" id="mensajeAdicional">
-      Un estudio publicado en <em>Frontiers in Psychology</em> reveló que los estudiantes que creen que su
-      <span class="neon-cyan">inteligencia</span> es algo fijo y no puede
-      <span class="neon-red">cambiar</span> tienen más probabilidades de sufrir problemas de salud mental y altos niveles de estrés académico.
+      Un estudio publicado en Frontiers in Psychology reveló que los estudiantes que creen que su inteligencia es algo con lo que nacieron y nunca va a cambiar tienen más probabilidades de experimentar problemas de salud mental y altos niveles de estrés académico.
     </div>
     <div class="mensaje-derecha" id="mensajeDerecha">
-      Esto lo relaciono directamente con la importancia de que los estudiantes conozcan de qué tratan las <span class="neon-pink">inteligencias múltiples</span>. <br><br>
-      Sin esta información, es fácil que una persona piense que "<span class="temblor neon-red">es boba</span>" y que así será para siempre. <br><br>
-      Esa creencia genera problemas emocionales graves, como baja autoestima, ansiedad o incluso depresión. <br><br>
-      Cuando no entendemos que existen múltiples formas de ser inteligente, nos privamos de la oportunidad de descubrir y <span class="neon-yellow">valorar</span> nuestras propias capacidades.
+      Cuando pensamos que somos y siempre seremos <span class="temblor-rapido">“bobos”</span>, no solo limitamos nuestro crecimiento, sino que también abrimos la puerta a heridas emocionales profundas: baja autoestima, ansiedad y depresión.<br><br>
+      Por eso es tan importante que entendamos el concepto de inteligencias múltiples para así poder descubrirnos y valorar nuestras propias capacidades.<br><br>
+      No existe un solo tipo de inteligencia.<br>
+      Cada persona tiene fortalezas únicas.
     </div>
     <div class="mensaje-derecha-adicional" id="mensajeDerechaAdicional">
       Estos son algunos ejemplos de personas que fueron tachadas de bobas por no tener una inteligencia desarrollada, pero destacaron con aquella inteligencia que sí tenían desarrollada.
@@ -416,23 +497,23 @@
     <div class="imagenes-grandes">
       <div class="imagen-contenedor" id="imagenMoises">
         <img src="Moises.jpg" alt="Espacio para imagen 1">
-        <div class="titulo-imagen">Moshe Rabbenu (Moisés)</div>
+        <div class="titulo-imagen titulo-imagen-moshe">Moshe Rabbenu (Moisés)</div>
         <div class="descripcion-imagen">
           Fue un hombre con una inteligencia lingüística muy poco desarrollada, pero una inteligencia intrapersonal muy desarrollada, lo que lo llevó a ser el líder más importante de su generación.
         </div>
       </div>
       <div class="imagen-contenedor" id="imagenSimone">
         <img src="Simone Biles.jpeg" alt="Espacio para imagen 2">
-        <div class="titulo-imagen">Simone Biles</div>
+        <div class="titulo-imagen titulo-imagen-simone">Simone Biles</div>
         <div class="descripcion-imagen">
-          Es una mujer con una inteligencia intrapersonal poco desarrollada pero una inteligencia corporal-cinestésica muy bien desarrollada, considerada una de las mejores gimnastas de todos los tiempos
+          Es una mujer con una inteligencia intrapersonal poco desarrollada pero una inteligencia corporal-cinestésica muy bien desarrollada, considerada una de las mejores gimnastas de todos los tiempos.
         </div>
       </div>
       <div class="imagen-contenedor" id="imagenBeethoven">
         <img src="Beethoven.jpeg" alt="Espacio para imagen 3">
-        <div class="titulo-imagen">Ludwig van Beethoven</div>
+        <div class="titulo-imagen titulo-imagen-beethoven">Ludwig van Beethoven</div>
         <div class="descripcion-imagen">
-          Fue un hombre con una baja inteligencia interpersonal desarrollada, pero una inteligencia musical tan desarrollada que fue capaz de crear piezas musicales aun estando sordo, marcando una nueva era en la música clásica
+          Fue un hombre con una baja inteligencia interpersonal desarrollada, pero una inteligencia musical tan desarrollada que fue capaz de crear piezas musicales aun estando sordo, marcando una nueva era en la música clásica.
         </div>
       </div>
     </div>
@@ -451,12 +532,19 @@
     </div>
     <div class="cita-blanca" id="citaBlanca">
       no existe una única forma de ser inteligente<br>
-      — Howard Gardner
+      <span style="color: #a020f0; text-shadow: 0 0 10px #a020f0, 0 0 20px #a020f0;">— Howard Gardner</span>
+    </div>
+    <div class="mensaje-blanco" id="mensajeBlanco">
+      El no tener habilidad en un área no te define como persona, tu talento puede estar en otro lugar, esperando ser descubierto.<br><br>
+      Y que muchas veces, aquello que creemos que es una debilidad, puede ser solo el primer paso para descubrir nuestra verdadera fuerza.
     </div>
     <div id="voladores"></div>
     <div id="nubeImgs"></div>
     <div id="estrellas"></div>
   </div>
+
+  <div id="scrollDownBtn">Bajar</div>
+  <div id="stopScrollBtn">Detener</div>
 
   <script>
     const audio1 = document.getElementById('audio1');
@@ -464,10 +552,15 @@
     const pantallaInicio = document.getElementById('pantallaInicio');
     const btnContinuar = document.getElementById('continuarBtn');
     const infografia = document.getElementById('infografia');
+    const scrollDownBtn = document.getElementById('scrollDownBtn');
+    const stopScrollBtn = document.getElementById('stopScrollBtn');
+    let scrollAnimation = null; // Ensure scrollAnimation is initialized properly
 
     btnContinuar.addEventListener('click', () => {
       pantallaInicio.classList.add('hidden');
       infografia.style.display = 'block';
+      scrollDownBtn.style.display = 'block'; // Show the scroll down button
+      stopScrollBtn.style.display = 'block'; // Show the stop button
       audio1.volume = 1;
       audio2.volume = 0;
       // Intenta iniciar audios aquí, el navegador puede requerir interacción
@@ -619,8 +712,31 @@
     observer.observe(document.getElementById('imagenSimone'));
     observer.observe(document.getElementById('imagenBeethoven'));
     observer.observe(document.getElementById('textoMitad'));
+    observer.observe(document.getElementById('mensajeBlanco')); // Observe the new text block
     // --- Fin IntersectionObserver ---
 
+    scrollDownBtn.addEventListener('click', () => {
+      clearInterval(scrollAnimation); // Clear any existing interval before starting a new one
+      let currentScroll = window.scrollY;
+      const scrollStep = 1; // Pixels to scroll per step (very slow)
+      const scrollInterval = 10; // Milliseconds between steps
+
+      scrollAnimation = setInterval(() => {
+        if (currentScroll + window.innerHeight >= document.body.scrollHeight) {
+          clearInterval(scrollAnimation);
+        } else {
+          currentScroll += scrollStep;
+          window.scrollTo(0, currentScroll);
+        }
+      }, scrollInterval);
+    });
+
+    stopScrollBtn.addEventListener('click', () => {
+      if (scrollAnimation) {
+        clearInterval(scrollAnimation); // Stop the scrolling animation
+        scrollAnimation = null; // Reset the interval ID
+      }
+    });
   </script>
 </body>
 </html>
