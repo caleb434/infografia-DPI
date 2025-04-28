@@ -806,19 +806,44 @@
       let currentScroll = window.scrollY;
       const scrollInterval = 18; // Interval for scrolling
       const normalScrollStep = 0.61; // Normal speed
-      const fastScrollStep = 30; // Increase fast speed for both sections
+      const fastScrollStep = 30; // Increase fast speed for specific sections
 
       scrollAnimation = setInterval(() => {
-        const targetFastScrollStart = document.querySelector('div[style*="top: 7400px"]').offsetTop; // Start of "Inteligencia musical" and "Inteligencia lógico-matemática"
-        const targetFastScrollEnd = document.getElementById('tituloBlanco').offsetTop - 200; // Slow down 200px before "todos somos inteligentes"
-        const targetLastVideoStart = 7400; // Start of the last video section
-        const targetGraciasEnd = 9300; // Slow down 200px before "Gracias"
+        const targetFastScrollStart = document.querySelector('div[style*="top: 7400px"]').offsetTop; // Inicio de "🧮 Inteligencia lógico-matemática" y "🎵 Inteligencia musical"
+        const targetFastScrollEnd = document.querySelector('div[style*="top: 9500px"]').offsetTop - 200; // 200px antes de "Gracias"
+        const targetMidFastScrollStart = document.getElementById('textoMitad').offsetTop; // Inicio de "¿Qué podemos aprender de esto?"
+        const targetMidFastScrollEnd = document.getElementById('tituloBlanco').offsetTop - 200; // Fin de "todos somos inteligentes"
 
-        // Adjust scroll speed based on position
-        let scrollStep = normalScrollStep; // Default slower speed
-        if ((currentScroll >= targetFastScrollStart && currentScroll < targetFastScrollEnd) ||
-            (currentScroll >= targetLastVideoStart && currentScroll < targetGraciasEnd)) {
-          scrollStep = fastScrollStep; // Faster speed in the specific sections
+        // Ajustar velocidad de desplazamiento según la posición
+        let scrollStep = normalScrollStep; // Velocidad lenta por defecto
+        if (
+          (currentScroll >= targetFastScrollStart && currentScroll < targetFastScrollEnd) || // Sección lógica-musical
+          (currentScroll >= targetMidFastScrollStart && currentScroll < targetMidFastScrollEnd)
+        ) {
+          scrollStep = fastScrollStep; // Velocidad rápida en secciones específicas
+        }
+
+        // Actualizar música según la posición de desplazamiento
+        if (isMusicPlaying) {
+          if (currentScroll < 4500) {
+            if (!audio1.paused) {
+              audio1.volume = 1;
+              audio2.volume = 0;
+              audio2.pause();
+            }
+          } else if (currentScroll >= 5500) {
+            if (!audio2.paused) {
+              audio2.volume = 1;
+              audio1.volume = 0;
+              audio1.pause();
+            }
+          } else {
+            const ratio = (currentScroll - 4500) / 1000;
+            audio1.volume = 1 - ratio;
+            audio2.volume = ratio;
+            if (audio1.paused && audio1.volume > 0) audio1.play().catch(e => {});
+            if (audio2.paused && audio2.volume > 0) audio2.play().catch(e => {});
+          }
         }
 
         if (currentScroll + window.innerHeight >= document.body.scrollHeight) {
