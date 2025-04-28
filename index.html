@@ -462,7 +462,7 @@
     </div>
     <div class="cita-texto" id="citaTexto">
       “La inteligencia se mide con el coeficiente intelectual.”<br>
-      <span class="neon-yellow">— Mentalidad del siglo XX.</span>
+      <span class="neon-yellow">— Una persona boba</span>
     </div>
 
     <div id="izquierdaContenido" style="justify-content: flex-end;">
@@ -765,9 +765,9 @@
     scrollDownBtn.addEventListener('click', () => {
       clearInterval(scrollAnimation); // Clear any existing interval before starting a new one
       let currentScroll = window.scrollY;
-      const scrollInterval = 18; // Reduce interval to make scrolling faster
-      const normalScrollStep = 0.55; // Slightly increase normal speed
-      const fastScrollStep = 5.5; // Slightly increase fast speed
+      const scrollInterval = 18; // Interval for scrolling
+      const normalScrollStep = 0.61; // Normal speed
+      const fastScrollStep = 30; // Increase fast speed for both sections
 
       scrollAnimation = setInterval(() => {
         const targetFastScrollStart = document.getElementById('textoMitad').offsetTop; // Start of "¿Qué podemos aprender de esto?"
