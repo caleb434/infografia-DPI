@@ -550,8 +550,8 @@
         </div>
       </div>
       <div style="width: 48%; background-color: black; padding: 10px; border-radius: 5px; position: relative;">
-        <iframe width="100%" height="315" src="" 
-                title="Video espacio 6" frameborder="0" 
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/nVdo5Y44ZVE?autoplay=1&loop=1&playlist=nVdo5Y44ZVE&controls=0" 
+                title="YouTube video player" frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen></iframe>
         <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); color: #8a2be2; text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2; font-size: 1rem; white-space: nowrap;">
@@ -564,8 +564,8 @@
     </div>
     <div style="position: absolute; top: 7000px; width: 90%; left: 5%; display: flex; justify-content: space-between; gap: 20px;">
       <div style="width: 48%; background-color: black; padding: 10px; border-radius: 5px; position: relative;">
-        <iframe width="100%" height="315" src="" 
-                title="Video espacio 7" frameborder="0" 
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/nXXI1fjbIHU?autoplay=1&loop=1&playlist=nXXI1fjbIHU&controls=0" 
+                title="YouTube video player" frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen></iframe>
         <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); color: #a52a2a; text-shadow: 0 0 10px #a52a2a, 0 0 20px #a52a2a; font-size: 1rem; white-space: nowrap;">
@@ -573,31 +573,8 @@
         </div>
       </div>
       <div style="width: 48%; background-color: black; padding: 10px; border-radius: 5px; position: relative;">
-        <iframe width="100%" height="315" src="" 
-                title="Video espacio 8" frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen></iframe>
-        <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); color: #ffd700; text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700; font-size: 1rem;">
-          🎵 Inteligencia musical
-        </div>
-      </div>
-    </div>
-    <div style="position: absolute; top: 7600px; width: 90%; left: 5%; text-align: center; color: black; font-size: 1.4rem; line-height: 1.8;">
-      Personalmente, no recordaba mucho este tema y tenía conocimiento limitado, ahora siento que mi percepción al momento de apreciar el concepto de inteligencia ha cambiado, y espero que ahora puedas entender a la inteligencia como algo que no es limitado y que se manifiesta de diferentes maneras.
-    </div>
-    <div style="position: absolute; top: 8000px; width: 90%; left: 5%; display: flex; justify-content: space-between; gap: 20px;">
-      <div style="width: 48%; background-color: black; padding: 10px; border-radius: 5px; position: relative;">
-        <iframe width="100%" height="315" src="" 
-                title="Video espacio 9" frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen></iframe>
-        <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); color: #ff0000; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; font-size: 1rem; white-space: nowrap;">
-          ➗ Inteligencia lógico-matemática
-        </div>
-      </div>
-      <div style="width: 48%; background-color: black; padding: 10px; border-radius: 5px; position: relative;">
-        <iframe width="100%" height="315" src="" 
-                title="Video espacio 10" frameborder="0" 
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/ZG0drumNBoQ?autoplay=1&loop=1&playlist=ZG0drumNBoQ&controls=0" 
+                title="YouTube video player" frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen></iframe>
         <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); color: #ffa500; text-shadow: 0 0 10px #ffa500, 0 0 20px #ffa500; font-size: 1rem; white-space: nowrap;">
@@ -788,19 +765,21 @@
     scrollDownBtn.addEventListener('click', () => {
       clearInterval(scrollAnimation); // Clear any existing interval before starting a new one
       let currentScroll = window.scrollY;
-      const scrollInterval = 10; // Milliseconds between steps
+      const scrollInterval = 18; // Reduce interval to make scrolling faster
+      const normalScrollStep = 0.55; // Slightly increase normal speed
+      const fastScrollStep = 5.5; // Slightly increase fast speed
 
       scrollAnimation = setInterval(() => {
         const targetFastScrollStart = document.getElementById('textoMitad').offsetTop; // Start of "¿Qué podemos aprender de esto?"
         const targetFastScrollEnd = document.getElementById('tituloBlanco').offsetTop - 200; // Slow down 200px before "todos somos inteligentes"
-        const targetLastVideoStart = 8000; // Start of the last video section
+        const targetLastVideoStart = 7000; // Start of the last video section
         const targetGraciasEnd = 9300; // Slow down 200px before "Gracias"
 
         // Adjust scroll speed based on position
-        let scrollStep = 1; // Normal speed
+        let scrollStep = normalScrollStep; // Default slower speed
         if ((currentScroll >= targetFastScrollStart && currentScroll < targetFastScrollEnd) ||
             (currentScroll >= targetLastVideoStart && currentScroll < targetGraciasEnd)) {
-          scrollStep = 10; // Faster speed in the specific sections
+          scrollStep = fastScrollStep; // Faster speed in the specific sections
         }
 
         if (currentScroll + window.innerHeight >= document.body.scrollHeight) {
