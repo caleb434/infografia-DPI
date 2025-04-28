@@ -633,13 +633,6 @@
       scrollDownBtn.style.display = 'block'; // Show the scroll down button
       stopScrollBtn.style.display = 'block'; // Show the stop button
       toggleMusicBtn.style.display = 'block'; // Mostrar el botón de música
-      audio1.volume = 1;
-      audio2.volume = 0;
-      // Intenta iniciar audios aquí, el navegador puede requerir interacción
-      audio1.play().catch(e => console.log("Audio 1 necesita interacción para iniciar"));
-      audio2.play().catch(e => console.log("Audio 2 necesita interacción para iniciar"));
-      audio2.pause(); // Asegura que el audio 2 comience pausado
-      requestAnimationFrame(updateVolume);
 
       // --- Código para estrellas, voladores y nubes ---
        const voladoresContainer = document.getElementById('voladores');
