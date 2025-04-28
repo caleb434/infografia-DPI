@@ -611,6 +611,9 @@
 
   <div id="scrollDownBtn">Bajar</div>
   <div id="stopScrollBtn">Detener</div>
+  <div id="toggleMusicBtn" style="display: none; position: fixed; bottom: 130px; right: 20px; z-index: 10000; background-color: #4caf50; color: white; font-size: 1.2rem; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50; transition: background-color 0.3s ease;">
+    Activar Música
+  </div>
 
   <script>
     const audio1 = document.getElementById('audio1');
@@ -620,13 +623,16 @@
     const infografia = document.getElementById('infografia');
     const scrollDownBtn = document.getElementById('scrollDownBtn');
     const stopScrollBtn = document.getElementById('stopScrollBtn');
+    const toggleMusicBtn = document.getElementById('toggleMusicBtn');
     let scrollAnimation = null; // Ensure scrollAnimation is initialized properly
+    let isMusicPlaying = false; // Estado inicial de la música
 
     btnContinuar.addEventListener('click', () => {
       pantallaInicio.classList.add('hidden');
       infografia.style.display = 'block';
       scrollDownBtn.style.display = 'block'; // Show the scroll down button
       stopScrollBtn.style.display = 'block'; // Show the stop button
+      toggleMusicBtn.style.display = 'block'; // Mostrar el botón de música
       audio1.volume = 1;
       audio2.volume = 0;
       // Intenta iniciar audios aquí, el navegador puede requerir interacción
@@ -708,30 +714,51 @@
 
     }); // Fin de btnContinuar.addEventListener
 
-    // --- Función updateVolume (sin cambios) ---
-     function updateVolume() {
-       const y = window.scrollY;
-       if (!audio1.paused || !audio2.paused) { // Solo actualiza si alguno está sonando (o intentando)
-           if (y < 4500) {
-               audio1.volume = Math.min(1, audio1.volume + 0.02); // Fade in/out suave
-               audio2.volume = Math.max(0, audio2.volume - 0.02);
-               if (audio2.volume === 0) audio2.pause();
-               if (audio1.paused && audio1.volume > 0) audio1.play().catch(e => {});
-           } else if (y >= 5500) {
-               audio1.volume = Math.max(0, audio1.volume - 0.02);
-               audio2.volume = Math.min(1, audio2.volume + 0.02);
-                if (audio1.volume === 0) audio1.pause();
-                if (audio2.paused && audio2.volume > 0) audio2.play().catch(e => {});
-           } else {
-               const ratio = (y - 4500) / 1000;
-               audio1.volume = 1 - ratio;
-               audio2.volume = ratio;
-               if (audio1.paused && audio1.volume > 0) audio1.play().catch(e => {});
-               if (audio2.paused && audio2.volume > 0) audio2.play().catch(e => {});
-           }
-       }
-       requestAnimationFrame(updateVolume);
-     }
+    toggleMusicBtn.addEventListener('click', () => {
+      if (isMusicPlaying) {
+        audio1.pause();
+        audio2.pause();
+        toggleMusicBtn.textContent = 'Activar Música';
+        toggleMusicBtn.style.backgroundColor = '#4caf50';
+        toggleMusicBtn.style.boxShadow = '0 0 10px #4caf50, 0 0 20px #4caf50';
+      } else {
+        if (window.scrollY < 4500) {
+          audio1.play().catch(e => console.log("Error al reproducir audio 1:", e));
+        } else {
+          audio2.play().catch(e => console.log("Error al reproducir audio 2:", e));
+        }
+        toggleMusicBtn.textContent = 'Desactivar Música';
+        toggleMusicBtn.style.backgroundColor = '#f44336';
+        toggleMusicBtn.style.boxShadow = '0 0 10px #f44336, 0 0 20px #f44336';
+      }
+      isMusicPlaying = !isMusicPlaying;
+    });
+
+    // --- Función updateVolume (modificada) ---
+    function updateVolume() {
+      if (!isMusicPlaying) return; // No ajustar volumen si la música está desactivada
+      const y = window.scrollY;
+      if (!audio1.paused || !audio2.paused) { // Solo actualiza si alguno está sonando (o intentando)
+          if (y < 4500) {
+              audio1.volume = Math.min(1, audio1.volume + 0.02); // Fade in/out suave
+              audio2.volume = Math.max(0, audio2.volume - 0.02);
+              if (audio2.volume === 0) audio2.pause();
+              if (audio1.paused && audio1.volume > 0) audio1.play().catch(e => {});
+          } else if (y >= 5500) {
+              audio1.volume = Math.max(0, audio1.volume - 0.02);
+              audio2.volume = Math.min(1, audio2.volume + 0.02);
+              if (audio1.volume === 0) audio1.pause();
+              if (audio2.paused && audio2.volume > 0) audio2.play().catch(e => {});
+          } else {
+              const ratio = (y - 4500) / 1000;
+              audio1.volume = 1 - ratio;
+              audio2.volume = ratio;
+              if (audio1.paused && audio1.volume > 0) audio1.play().catch(e => {});
+              if (audio2.paused && audio2.volume > 0) audio2.play().catch(e => {});
+          }
+      }
+      requestAnimationFrame(updateVolume);
+    }
     // --- Fin función updateVolume ---
 
     // --- IntersectionObserver MODIFICADO ---
